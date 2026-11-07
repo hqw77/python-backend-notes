@@ -42,7 +42,7 @@ mysql_notes/ch01/
 | --- | --- | --- | --- | --- |
 | ch01 | Redis 基础：五种类型、过期、Python 操作 | 已完成 | `redis_notes/ch01/notes/` | `redis_notes/ch01/code/`（4 个案例） |
 | ch02 | 缓存设计：Cache-Aside、穿透 / 击穿 / 雪崩、一致性 | 已完成 | `redis_notes/ch02/notes/` | `redis_notes/ch02/code/`（3 个案例） |
-| ch03 | 接入 `project/`：配置、缓存服务、失效、测试 | 待开始 | — | — |
+| ch03 | 接入 `project/`：配置、缓存服务、失效、测试 | 已完成 | `redis_notes/ch03/notes/` | `redis_notes/ch03/code/`（2 个案例）+ `project/app/db/redis_client.py`、`project/app/services/cache.py`、`user_cache.py`、`project/tests/test_cache.py` |
 
 ### 第二部分 · FastAPI 深入（`fastapi_notes/`）
 

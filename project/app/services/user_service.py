@@ -15,6 +15,7 @@ from sqlalchemy.orm import Session
 
 from app.core.exceptions import AppError, ConflictError, NotFoundError
 from app.models import Role, User
+from app.services import cache
 
 
 def create_user(
@@ -64,6 +65,7 @@ def update_balance(db: Session, user_id: int, amount: Decimal) -> User:
     user.balance = user.balance + amount       # 💡 改属性即可,脏检查负责生成 UPDATE
     db.commit()
     db.refresh(user)
+    cache.delete(cache.user_key(user_id))      # 改完库再删缓存, 顺序不能反
     return user
 
 
@@ -73,6 +75,7 @@ def soft_delete(db: Session, user_id: int) -> User:
     user.is_deleted = 1
     db.commit()
     db.refresh(user)
+    cache.delete(cache.user_key(user_id))
     return user
 
 
@@ -81,6 +84,7 @@ def hard_delete(db: Session, user_id: int) -> None:
     user = get_user(db, user_id)
     db.delete(user)
     db.commit()
+    cache.delete(cache.user_key(user_id))
 
 
 # ---- 角色相关(第七章)--------------------------------------------
@@ -134,4 +138,5 @@ def transfer(db: Session, from_id: int, to_id: int, amount: Decimal) -> tuple[Us
 
     db.refresh(src)
     db.refresh(dst)
+    cache.delete(cache.user_key(from_id), cache.user_key(to_id))   # 两边缓存都要失效
     return src, dst

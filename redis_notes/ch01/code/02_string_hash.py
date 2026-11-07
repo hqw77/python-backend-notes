@@ -36,10 +36,10 @@ if __name__ == "__main__":
     print("    剩余秒数            ->", r.ttl("lock"))
 
     show("④ Hash: 存一个对象")
-    r.hset("user:1", mapping={"username": "张三", "phone": "13800000001", "points": "0"})
-    print("    hgetall            ->", r.hgetall("user:1"))
-    print("    hget(username)     ->", r.hget("user:1", "username"))
-    print("    hincrby(points,12) ->", r.hincrby("user:1", "points", 12))
+    r.hset("profile:1", mapping={"username": "张三", "phone": "13800000001", "points": "0"})
+    print("    hgetall            ->", r.hgetall("profile:1"))
+    print("    hget(username)     ->", r.hget("profile:1", "username"))
+    print("    hincrby(points,12) ->", r.hincrby("profile:1", "points", 12))
     print("    注: hincrby 只能加整数,金额这种小数会报错")
 
     show("⑤ 怎么选")
@@ -48,6 +48,6 @@ if __name__ == "__main__":
     print("    整个对象要设过期时间          -> String + JSON(Hash 不能给单个字段设过期)")
 
     show("⑥ 清理")
-    for key in ("name", "visits", "lock", "user:1"):
+    for key in ("name", "visits", "lock", "profile:1"):
         r.delete(key)
-    print("    已删除 name / visits / lock / user:1")
+    print("    已删除 name / visits / lock / profile:1")

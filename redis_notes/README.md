@@ -24,28 +24,31 @@ Python 客户端:`redis`(redis-py 8.1)。
 | --- | --- | --- |
 | [ch01](ch01/notes/Redis%20基础.md) | Redis 基础:五种类型、过期、Python 操作 | ✅ 完成 |
 | [ch02](ch02/notes/缓存设计与三大问题.md) | 缓存设计:Cache-Aside、穿透/击穿/雪崩、一致性 | ✅ 完成 |
-| ch03 | 接入 `project/`:配置、连接池、缓存服务、失效、测试 | ⬜ 待开始 |
+| [ch03](ch03/notes/把缓存接进项目.md) | 接入 `project/`:配置、连接池、缓存服务、失效、测试 | ✅ 完成 |
 
 ## 案例清单
 
 | 文件 | 验证什么 |
 | --- | --- |
 | `ch01/code/01_connect.py` | 单连接 vs 连接池、`decode_responses` |
-| `ch01/code/02_string_hash.py` | String 计数、`SET NX EX`、Hash 存对象 |
+| `ch01/code/02_string_hash.py` | String 计数、`set nx ex`、Hash 存对象 |
 | `ch01/code/03_list_set_zset.py` | 队列/栈、集合运算、排行榜 |
-| `ch01/code/04_expire_and_key.py` | TTL 三种返回值、SCAN、DEL/UNLINK、命名 |
+| `ch01/code/04_expire_and_key.py` | TTL 三种返回值、scan、del/unlink、命名 |
 | `ch02/code/01_cache_aside.py` | Cache-Aside 读写路径、命中率与耗时对比 |
 | `ch02/code/02_three_problems.py` | 穿透/击穿/雪崩的复现与防护 |
 | `ch02/code/03_consistency.py` | 先删缓存 vs 先改库的脏数据窗口 |
+| `ch03/code/01_cache_in_project.py` | 真实接口:命中缓存后 0 条 SELECT |
+| `ch03/code/02_invalidation.py` | 改余额 / 软删除后缓存立刻失效 |
 
 运行方式(在仓库根目录):
 
 ```bash
 python redis_notes/ch01/code/01_connect.py
-python redis_notes/ch02/code/03_consistency.py
+python redis_notes/ch03/code/01_cache_in_project.py
 ```
 
-所有案例自带 `demo:` 前缀,结束时会自行清理,不影响其他数据。
+ch01/ch02 的案例自带 `demo:` 前缀;ch03 的案例直接调 `project/` 的真实接口,
+会清掉 `user:1` / `user:2` 的缓存,并在结束时恢复数据。
 
 ## 目录规范
 

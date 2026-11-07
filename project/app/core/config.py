@@ -43,6 +43,14 @@ class Settings(BaseSettings):
     db_pool_timeout: int = 30      # 池满时等待可用连接的超时秒数
     db_echo: bool = False          # True 会打印每条 SQL,调试用
 
+    # ---- Redis 缓存 ----
+    redis_host: str = "localhost"
+    redis_port: int = 6379
+    redis_db: int = 0
+    redis_password: str = ""
+    redis_max_connections: int = 20
+    redis_default_ttl: int = 300   # 缓存默认存活秒数
+
     @property
     def database_url(self) -> str:
         """拼出 SQLAlchemy 连接串.

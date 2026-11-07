@@ -25,6 +25,7 @@
 | PyMySQL | 1.2 | MySQL 驱动 |
 | argon2-cffi | 25.1 | 密码哈希 |
 | PyJWT | 2.15 | JWT 签发与校验 |
+| redis-py | 8.1 | 缓存客户端（用户详情走 Cache-Aside） |
 | pytest | 9.2 | 自动化测试 |
 
 ## 目录结构
@@ -111,7 +112,7 @@ uvicorn app.main:app --reload
 | POST | `/auth/login` | 公开 | 登录,返回 JWT |
 | GET | `/auth/me` | 登录 | 当前用户信息与角色 |
 | GET | `/users` | 公开 | 分页列表（自动过滤软删） |
-| GET | `/users/{id}` | 公开 | 用户详情 |
+| GET | `/users/{id}` | 公开 | 用户详情（带缓存，命中时 0 条 SQL） |
 | POST | `/users` | 公开 | 创建用户（管理用途） |
 | PUT | `/users/{id}/balance` | 公开 | 调整余额 |
 | DELETE | `/users/{id}` | 公开 | 软删除 |

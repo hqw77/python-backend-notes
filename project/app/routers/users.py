@@ -9,7 +9,7 @@ from sqlalchemy.orm import Session
 
 from app.deps import get_db, require_role
 from app.schemas.user import UserCreate, UserOut, UserPage, UserUpdateBalance
-from app.services import user_service
+from app.services import user_cache, user_service
 
 router = APIRouter(prefix="/users", tags=["users"])
 
@@ -24,9 +24,9 @@ def list_users(
     return UserPage(total=total, page=page, size=size, items=items)
 
 
-@router.get("/{user_id}", response_model=UserOut, summary="用户详情")
+@router.get("/{user_id}", response_model=UserOut, summary="用户详情(带缓存)")
 def get_user(user_id: int, db: Session = Depends(get_db)) -> UserOut:
-    return user_service.get_user(db, user_id)
+    return user_cache.get_user_out(db, user_id)
 
 
 @router.post(

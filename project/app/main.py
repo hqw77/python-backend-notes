@@ -8,6 +8,7 @@ from fastapi.responses import JSONResponse
 from app.core.config import settings
 from app.core.exceptions import AppError
 from app.db.engine import engine
+from app.db.redis_client import close_redis
 from app.routers import auth, health, users, wallet
 
 
@@ -15,8 +16,9 @@ from app.routers import auth, health, users, wallet
 async def lifespan(app: FastAPI):
     # 启动:以后在这里做连接池预热,缓存加载
     yield
-    # 关闭:释放连接池,避免进程退出时连接悬空
+    # 关闭:释放 MySQL 连接池和 Redis 连接,避免进程退出时连接悬空
     engine.dispose()
+    close_redis()
 
 
 app = FastAPI(
