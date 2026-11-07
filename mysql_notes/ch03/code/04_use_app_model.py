@@ -1,17 +1,17 @@
-"""案例 4：用 app/ 里那份「工程版」模型,查同一条数据。
+"""案例 4:用 app/ 里那份"工程版"模型,查同一条数据.
 
-学到什么：
+学到什么:
     同一个 User,写在单个脚本里和写在 app/models/ 里,
-    对使用者来说调用方式几乎一样——这就是"好的抽象"。
+    对使用者来说调用方式几乎一样-这就是"好的抽象".
 
-怎么跑（必须在仓库根目录执行）：
+怎么跑(必须在仓库根目录执行):
     export MYSQL_PASSWORD=你的密码
     python mysql_notes/ch03/code/04_use_app_model.py
 
-和案例 1 的关系：
-    案例 1 的 User 是本地定义的；
-    这里的 User 来自 app.models,背后连着 app/db/ 的 Engine 和 Session。
-    数据完全一样,只是模型放在哪、谁来管连接的区别。
+和案例 1 的关系:
+    案例 1 的 User 是本地定义的;
+    这里的 User 来自 app.models,背后连着 app/db/ 的 Engine 和 Session.
+    数据完全一样,只是模型放在哪,谁来管连接的区别.
 """
 
 import sys

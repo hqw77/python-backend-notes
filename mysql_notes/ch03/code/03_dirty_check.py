@@ -1,16 +1,16 @@
-"""案例 3：脏检查 —— 改属性到底什么时候才发 UPDATE。
+"""案例 3:脏检查 - 改属性到底什么时候才发 UPDATE.
 
-学到什么：
+学到什么:
     1. 改属性只打标记,不发 SQL
     2. 赋相同的值,flush 时不会生成 UPDATE
     3. 赋不同的值,UPDATE 只带变化的那一列
     4. rollback 会把内存里的修改一起丢掉
 
-怎么跑：
+怎么跑:
     export MYSQL_PASSWORD=你的密码
     python mysql_notes/ch03/code/03_dirty_check.py
 
-注意：全程不 commit,最后 rollback,不会改坏你的数据。
+注意:全程不 commit,最后 rollback,不会改坏你的数据.
 """
 
 import os
@@ -37,7 +37,7 @@ def _record(conn, cursor, statement, parameters, context, executemany):
 
 
 def take_sql() -> list[str]:
-    """取出上次清空以来、和 users 表有关的 SQL。"""
+    """取出上次清空以来,和 users 表有关的 SQL."""
     got = [s for s in _captured if "users" in s.lower()]
     _captured.clear()
     return got

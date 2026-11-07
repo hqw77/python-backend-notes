@@ -34,14 +34,14 @@ CREATE TABLE articles (
     updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COMMENT = '文章表';
 
--- 5. 文章-标签中间表（多对多）
+-- 5. 文章-标签中间表(多对多)
 CREATE TABLE article_tags (
     article_id BIGINT UNSIGNED NOT NULL,
     tag_id INT UNSIGNED NOT NULL,
     PRIMARY KEY (article_id, tag_id) -- 联合主键,防止重复关联
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COMMENT = '文章标签关联表';
 
--- 6. 评论表（自关联设计,支持回复功能）
+-- 6. 评论表(自关联设计,支持回复功能)
 CREATE TABLE comments (
     id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     article_id BIGINT UNSIGNED NOT NULL,

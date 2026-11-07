@@ -1,6 +1,6 @@
 """add roles and user_roles
 
-第五章产物：新增角色表和多对多关联表,并预置三个角色。
+第五章产物:新增角色表和多对多关联表,并预置三个角色.
 
 Revision ID: 0002_roles
 Revises: 0001_initial

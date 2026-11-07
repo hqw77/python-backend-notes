@@ -1,8 +1,8 @@
 """initial schema: users
 
-把库中已存在的 users 表固化成第一个迁移版本。
+把库中已存在的 users 表固化成第一个迁移版本.
 因为表已经在库里,这份迁移只需 `alembic stamp head` 标记为已执行,
-不要真的 upgrade（会撞 Table already exists）。
+不要真的 upgrade(会撞 Table already exists).
 
 Revision ID: 0001_initial
 Revises:

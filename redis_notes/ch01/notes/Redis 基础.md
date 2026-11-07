@@ -181,8 +181,8 @@ r.zincrby("rank", 50, "王五")                 # 加分
 
 案例文件：
 
-- `redis/ch01/code/02_string_hash.py`
-- `redis/ch01/code/03_list_set_zset.py`
+- `redis_notes/ch01/code/02_string_hash.py`
+- `redis_notes/ch01/code/03_list_set_zset.py`
 
 真实运行结果（节选）：
 
@@ -272,7 +272,7 @@ for key in r.scan_iter("user:*"):
 
 好处是可以用 `SCAN user:*` 批量管理,也能一眼看出是哪个业务的数据。
 
-案例文件：`redis/ch01/code/04_expire_and_key.py`
+案例文件：`redis_notes/ch01/code/04_expire_and_key.py`
 
 真实运行结果：
 
@@ -339,7 +339,7 @@ data = json.loads(r.get("user:42"))
 
 **注意**：`ensure_ascii=False` 让中文原样存储,否则会变成 `\u5f20\u4e09`,用 `redis-cli` 看的时候很难受。
 
-案例文件：`redis/ch01/code/01_connect.py`
+案例文件：`redis_notes/ch01/code/01_connect.py`
 
 真实运行结果：
 

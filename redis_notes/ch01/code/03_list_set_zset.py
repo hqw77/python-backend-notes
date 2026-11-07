@@ -1,10 +1,10 @@
-"""Redis 第一章 · 案例 3：List、Set、ZSet。
+"""Redis 第一章 . 案例 3:List,Set,ZSet.
 
-学到什么：
-    List 当队列/栈；Set 做去重与集合运算；ZSet 做排行榜。
+学到什么:
+    List 当队列/栈;Set 做去重与集合运算;ZSet 做排行榜.
 
-怎么跑：
-    python redis/ch01/code/03_list_set_zset.py
+怎么跑:
+    python redis_notes/ch01/code/03_list_set_zset.py
 """
 
 import redis

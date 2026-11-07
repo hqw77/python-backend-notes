@@ -1,14 +1,14 @@
-"""Redis 第二章 · 案例 1：Cache-Aside 的完整读写路径。
+"""Redis 第二章 . 案例 1:Cache-Aside 的完整读写路径.
 
-学到什么：
+学到什么:
     1. 读:先查缓存,未命中再查库,回写缓存
     2. 写:先改库,再删缓存
     3. 用"查询次数"和"耗时"证明缓存有效
 
-怎么跑：
-    python redis/ch02/code/01_cache_aside.py
+怎么跑:
+    python redis_notes/ch02/code/01_cache_aside.py
 
-不依赖 MySQL,用一个带 50ms 延迟的假数据库模拟慢查询。
+不依赖 MySQL,用一个带 50ms 延迟的假数据库模拟慢查询.
 """
 
 import json
@@ -22,7 +22,7 @@ TTL = 300
 
 
 class FakeDB:
-    """模拟 MySQL：每次都慢 50ms,并记录被查询的次数。"""
+    """模拟 MySQL:每次都慢 50ms,并记录被查询的次数."""
 
     def __init__(self) -> None:
         self.rows = {
@@ -50,7 +50,7 @@ def show(title: str) -> None:
 
 
 def get_user_cached(user_id: int):
-    """Cache-Aside 读路径。"""
+    """Cache-Aside 读路径."""
     key = f"{PREFIX}user:{user_id}"
 
     # ① 先查缓存
@@ -70,7 +70,7 @@ def get_user_cached(user_id: int):
 
 
 def update_user_balance(user_id: int, balance: str) -> None:
-    """Cache-Aside 写路径：先改库,再删缓存。"""
+    """Cache-Aside 写路径:先改库,再删缓存."""
     db.update_balance(user_id, balance)
     r.delete(f"{PREFIX}user:{user_id}")
     print(f"    [写] 改库完成,已删除缓存 {PREFIX}user:{user_id}")

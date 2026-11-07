@@ -1,16 +1,16 @@
-"""第三章补充：把 SQLAlchemy 的内部过程摊开看。
+"""第三章补充:把 SQLAlchemy 的内部过程摊开看.
 
-这个脚本不教你新语法,只做一件事：
-每个动作后面,立刻打印「Session 里发生了什么」和「发了什么 SQL」。
+这个脚本不教你新语法,只做一件事:
+每个动作后面,立刻打印"Session 里发生了什么"和"发了什么 SQL".
 
-跑完你会知道：
-    · 什么时候才真正连上数据库
-    · add 之后对象去哪了
-    · commit 时到底发了什么
-    · 改属性为什么不发 SQL
-    · 为什么同一个 id 查两次是同一个对象
+跑完你会知道:
+    . 什么时候才真正连上数据库
+    . add 之后对象去哪了
+    . commit 时到底发了什么
+    . 改属性为什么不发 SQL
+    . 为什么同一个 id 查两次是同一个对象
 
-怎么跑：
+怎么跑:
     export MYSQL_PASSWORD=你的密码
     python mysql_notes/ch03/code/06_under_the_hood.py
 """
@@ -28,7 +28,7 @@ from app.db.engine import engine  # noqa: E402
 from app.db.session import SessionLocal  # noqa: E402
 from app.models import User  # noqa: E402
 
-# 抓 SQL：每发一条就记下来
+# 抓 SQL:每发一条就记下来
 _captured: list[str] = []
 
 
@@ -38,7 +38,7 @@ def _record(conn, cursor, statement, parameters, context, executemany):
 
 
 def take_sql() -> list[str]:
-    """取出上次清空以来执行过的 SQL。"""
+    """取出上次清空以来执行过的 SQL."""
     got = list(_captured)
     _captured.clear()
     return got
@@ -116,8 +116,8 @@ if __name__ == "__main__":
         # =============================================================
         hr("⑦ identity map：同一个 id 查两次,是同一个对象吗？")
         take_sql()
-        a = db.get(User, 2)          # 第一次：这个对象还没加载过,要查库
-        b = db.get(User, 2)          # 第二次：已经在 session 里了,不再查
+        a = db.get(User, 2)          # 第一次:这个对象还没加载过,要查库
+        b = db.get(User, 2)          # 第二次:已经在 session 里了,不再查
         same = [s for s in _captured if "users" in s.lower()]
         print(f"   a = db.get(User, 2)   →  {a}")
         print(f"   b = db.get(User, 2)   →  {b}")

@@ -6,7 +6,7 @@ CREATE DATABASE IF NOT EXISTS test_db DEFAULT CHARACTER SET utf8mb4 DEFAULT COLL
 USE test_db;
 
 -- ==========================================
--- 2. 删除旧表（注意：会删除原有数据）
+-- 2. 删除旧表(注意:会删除原有数据)
 -- 按照外键依赖关系,先删除关联表
 -- ==========================================
 DROP TABLE IF EXISTS orders;
@@ -52,7 +52,7 @@ CREATE TABLE role (
 
 -- ==========================================
 -- 5. 创建用户角色关联表
--- 用户与角色：多对多
+-- 用户与角色:多对多
 -- ==========================================
 CREATE TABLE user_role (
     user_id BIGINT UNSIGNED NOT NULL COMMENT '用户ID',
@@ -66,7 +66,7 @@ CREATE TABLE user_role (
 
 -- ==========================================
 -- 6. 创建订单表
--- 用户与订单：一对多
+-- 用户与订单:一对多
 -- ==========================================
 CREATE TABLE orders (
     id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '订单ID',
@@ -98,7 +98,7 @@ VALUES ('管理员', 'ADMIN', '系统管理员'),
     ('运营人员', 'OPERATOR', '运营管理人员');
 
 -- ==========================================
--- 8. 初始化用户数据（仅用于学习测试）
+-- 8. 初始化用户数据(仅用于学习测试)
 -- 实际项目中 password 应存储安全哈希
 -- ==========================================
 INSERT INTO

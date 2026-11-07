@@ -1,4 +1,4 @@
-"""认证接口：注册、登录、查看当前用户。"""
+"""认证接口:注册,登录,查看当前用户."""
 
 from fastapi import APIRouter, Depends, status
 from sqlalchemy.orm import Session

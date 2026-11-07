@@ -1,6 +1,6 @@
 USE learn_mysql;
 
--- 先删除（注意顺序：先删子表,再删父表）
+-- 先删除(注意顺序:先删子表,再删父表)
 DROP TABLE IF EXISTS borrows;
 
 DROP TABLE IF EXISTS books;

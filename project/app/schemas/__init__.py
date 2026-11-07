@@ -1,4 +1,4 @@
-"""Pydantic 模型包。"""
+"""Pydantic 模型包."""
 
 from app.schemas.user import UserCreate, UserOut, UserPage, UserUpdateBalance
 

@@ -18,7 +18,7 @@ def run_sql():
     with conn.cursor(cursor=DictCursor) as cur:
         
         print("--- 1. 增 (INSERT) ---")
-        # 使用 %s 作为占位符（这是 PyMySQL 的标准写法,不管是数字还是字符串都用 %s,防 SQL 注入）
+        # 使用 %s 作为占位符(这是 PyMySQL 的标准写法,不管是数字还是字符串都用 %s,防 SQL 注入)
         insert_sql = "INSERT INTO students (name, age, score) VALUES (%s, %s, %s)"
         cur.execute(insert_sql, ('孙七', 23, 95.5))
         

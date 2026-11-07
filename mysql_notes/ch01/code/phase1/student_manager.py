@@ -3,7 +3,7 @@ import os
 import pymysql
 from pymysql.cursors import DictCursor
 
-# 1. 建立数据库连接（密码从环境变量读取,不要把密码写进代码）
+# 1. 建立数据库连接(密码从环境变量读取,不要把密码写进代码)
 def get_conn():
     return pymysql.connect(
         host=os.getenv("MYSQL_HOST", "localhost"),

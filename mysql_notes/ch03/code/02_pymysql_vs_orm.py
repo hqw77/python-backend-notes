@@ -1,10 +1,10 @@
-"""案例 2：同一件事,PyMySQL 和 ORM 各写一遍。
+"""案例 2:同一件事,PyMySQL 和 ORM 各写一遍.
 
-学到什么：
-    「发 SQL 拿字典」和「拿对象」到底差在哪。
-    答案不在写法,在拿到的东西：一个是 dict,一个是带类型的对象。
+学到什么:
+    "发 SQL 拿字典"和"拿对象"到底差在哪.
+    答案不在写法,在拿到的东西:一个是 dict,一个是带类型的对象.
 
-怎么跑：
+怎么跑:
     export MYSQL_PASSWORD=你的密码
     python mysql_notes/ch03/code/02_pymysql_vs_orm.py
 """

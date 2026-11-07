@@ -1,8 +1,8 @@
-"""第三章补充：同一个操作,用 SQL 写一遍、用 ORM 写一遍,并排对比。
+"""第三章补充:同一个操作,用 SQL 写一遍,用 ORM 写一遍,并排对比.
 
-这个脚本不教新东西,只做一件事：把你已经会的 SQL,和等价的 ORM 写法摆在一起看。
+这个脚本不教新东西,只做一件事:把你已经会的 SQL,和等价的 ORM 写法摆在一起看.
 
-怎么跑：
+怎么跑:
     export MYSQL_PASSWORD=你的密码
     python mysql_notes/ch03/code/05_sql_vs_orm.py
 """
@@ -32,7 +32,7 @@ DB = {
 
 
 def sql_query(sql: str, params=None):
-    """用原生 SQL 查,返回字典列表。"""
+    """用原生 SQL 查,返回字典列表."""
     conn = pymysql.connect(**DB)
     try:
         with conn.cursor(DictCursor) as cur:

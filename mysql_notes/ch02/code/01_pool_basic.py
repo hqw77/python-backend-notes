@@ -1,10 +1,10 @@
-"""案例 1：连接池能借能还,而且借到的还是同一条物理连接。
+"""案例 1:连接池能借能还,而且借到的还是同一条物理连接.
 
-学到什么：
-    connection() 是「借」,close() 是「还」——池子里的连接从头到尾没有断过。
-    三次借还拿到同一个 CONNECTION_ID(),说明省掉了三次 TCP 握手和认证。
+学到什么:
+    connection() 是"借",close() 是"还"-池子里的连接从头到尾没有断过.
+    三次借还拿到同一个 CONNECTION_ID(),说明省掉了三次 TCP 握手和认证.
 
-怎么跑：
+怎么跑:
     export MYSQL_PASSWORD=你的密码
     python mysql_notes/ch02/code/01_pool_basic.py
 """

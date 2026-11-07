@@ -20,7 +20,7 @@
 与 `mysql_notes/` 保持一致:
 
 ```plain
-fastapi/
+fastapi_notes/
 ├── README.md
 ├── chNN/
 │   ├── notes/        # 笔记(教材骨架 + 通俗理解注解 + 案例引用)

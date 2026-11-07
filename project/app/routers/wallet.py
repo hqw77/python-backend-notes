@@ -1,4 +1,4 @@
-"""钱包接口：转账（事务实战）。"""
+"""钱包接口:转账(事务实战)."""
 
 from decimal import Decimal
 

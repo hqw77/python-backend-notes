@@ -3,7 +3,7 @@ USE learn_mysql;
 -- 删除旧表
 DROP TABLE IF EXISTS big_users;
 
--- 创建一张大表（注意：先不加任何索引）
+-- 创建一张大表(注意:先不加任何索引)
 CREATE TABLE big_users (
     id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY, -- id 默认是主键索引
     username VARCHAR(50) NOT NULL,
@@ -13,7 +13,7 @@ CREATE TABLE big_users (
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4;
 
--- 用代码快速插入 10 万条数据（通过 MySQL 的存储过程/循环,或者多行插入）
+-- 用代码快速插入 10 万条数据(通过 MySQL 的存储过程/循环,或者多行插入)
 -- 这里用纯 SQL 快速生成
 INSERT INTO
     big_users (username, email, age, city)
@@ -130,5 +130,5 @@ FROM (
             ) e
     ) t;
 
--- 验证数据量（应该有 100000 条）
+-- 验证数据量(应该有 100000 条)
 SELECT COUNT(*) FROM big_users;

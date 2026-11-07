@@ -19,7 +19,7 @@ CREATE TABLE products (
     created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COMMENT = '商品表';
 
--- 3. 订单表（主表）
+-- 3. 订单表(主表)
 CREATE TABLE orders (
     id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     order_no VARCHAR(32) NOT NULL UNIQUE COMMENT '订单号',
@@ -29,7 +29,7 @@ CREATE TABLE orders (
     created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COMMENT = '订单主表';
 
--- 4. 订单明细表（子表）
+-- 4. 订单明细表(子表)
 CREATE TABLE order_items (
     id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     order_id INT UNSIGNED NOT NULL COMMENT '关联的订单ID',

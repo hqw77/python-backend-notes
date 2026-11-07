@@ -1,1 +1,1 @@
-"""python-backend-notes 应用包。"""
+"""python-backend-notes 应用包."""

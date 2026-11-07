@@ -1,7 +1,7 @@
-"""User 模型 —— 映射 learn_mysql.users 表。
+"""User 模型 - 映射 learn_mysql.users 表.
 
-SQLAlchemy 2.0 风格：`Mapped[T]` 声明 Python 类型,`mapped_column()` 描述数据库列。
-两者分离的好处是 IDE 能直接推断 `user.username` 是 str,不用靠约定。
+SQLAlchemy 2.0 风格:`Mapped[T]` 声明 Python 类型,`mapped_column()` 描述数据库列.
+两者分离的好处是 IDE 能直接推断 `user.username` 是 str,不用靠约定.
 """
 
 from datetime import datetime
@@ -61,9 +61,9 @@ class User(Base):
     def __repr__(self) -> str:
         return f"<User id={self.id} username={self.username!r} balance={self.balance}>"
 
-    # ---- 关系映射（第五章）------------------------------------------
+    # ---- 关系映射(第五章)------------------------------------------
 
-    # 一对多：一个用户有多张订单
+    # 一对多:一个用户有多张订单
     # ⚠️ 库里没有物理外键,所以两边都要写 primaryjoin + foreign()
     orders: Mapped[list["Order"]] = relationship(
         back_populates="user",
@@ -71,7 +71,7 @@ class User(Base):
         primaryjoin="foreign(Order.user_id) == User.id",
     )
 
-    # 多对多：一个用户可有多个角色,一个角色可属于多个用户
+    # 多对多:一个用户可有多个角色,一个角色可属于多个用户
     roles: Mapped[list["Role"]] = relationship(
         secondary="user_roles",
         back_populates="users",

@@ -1,10 +1,10 @@
-"""Redis 第一章 · 案例 2：String 与 Hash。
+"""Redis 第一章 . 案例 2:String 与 Hash.
 
-学到什么：
-    String 适合存单值、计数器；Hash 适合存对象的多个字段。
+学到什么:
+    String 适合存单值,计数器;Hash 适合存对象的多个字段.
 
-怎么跑：
-    python redis/ch01/code/02_string_hash.py
+怎么跑:
+    python redis_notes/ch01/code/02_string_hash.py
 """
 
 import time

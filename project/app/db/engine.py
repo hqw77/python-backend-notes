@@ -1,4 +1,4 @@
-"""数据库引擎：全进程只创建一个 Engine,它内部持有连接池。"""
+"""数据库引擎:全进程只创建一个 Engine,它内部持有连接池."""
 
 from sqlalchemy import create_engine
 

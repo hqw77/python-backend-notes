@@ -1,12 +1,12 @@
-"""Redis 第二章 · 案例 2：缓存穿透、击穿、雪崩的复现与防护。
+"""Redis 第二章 . 案例 2:缓存穿透,击穿,雪崩的复现与防护.
 
-学到什么：
+学到什么:
     穿透 = 查不存在的数据,每次都打到库
     击穿 = 热点 key 过期瞬间,并发全部打到库
     雪崩 = 大批 key 同时过期,库被瞬间打垮
 
-怎么跑：
-    python redis/ch02/code/02_three_problems.py
+怎么跑:
+    python redis_notes/ch02/code/02_three_problems.py
 """
 
 import json
@@ -47,7 +47,7 @@ def clean() -> None:
 
 # ---------------------------------------------------------------- 穿透
 def read_plain(user_id: int):
-    """不做任何防护：查不到就查不到,下次还查。"""
+    """不做任何防护:查不到就查不到,下次还查."""
     key = f"{PREFIX}plain:{user_id}"
     cached = r.get(key)
     if cached is not None:
@@ -59,7 +59,7 @@ def read_plain(user_id: int):
 
 
 def read_with_null_cache(user_id: int):
-    """防护：把"不存在"也缓存起来（短 TTL）。"""
+    """防护:把"不存在"也缓存起来(短 TTL)."""
     key = f"{PREFIX}null:{user_id}"
     cached = r.get(key)
     if cached is not None:
@@ -76,7 +76,7 @@ def read_with_null_cache(user_id: int):
 
 # ---------------------------------------------------------------- 击穿
 def read_no_lock(user_id: int):
-    """热点 key 过期后,并发请求全部穿透到数据库。"""
+    """热点 key 过期后,并发请求全部穿透到数据库."""
     key = f"{PREFIX}hot"
     cached = r.get(key)
     if cached is not None:
@@ -88,7 +88,7 @@ def read_no_lock(user_id: int):
 
 
 def read_with_lock(user_id: int):
-    """防护：只让一个请求去查库,其他等待。"""
+    """防护:只让一个请求去查库,其他等待."""
     key = f"{PREFIX}hot"
     cached = r.get(key)
     if cached is not None:
@@ -105,14 +105,14 @@ def read_with_lock(user_id: int):
         finally:
             r.delete(lock_key)
 
-    # 没抢到锁：等一会儿再读缓存
+    # 没抢到锁:等一会儿再读缓存
     time.sleep(0.1)
     return r.get(key)
 
 
 # ---------------------------------------------------------------- 雪崩
 def set_many_uniform(n: int = 20) -> None:
-    """所有 key 用同一个 TTL → 同生共死。"""
+    """所有 key 用同一个 TTL → 同生共死."""
     pipe = r.pipeline()
     for i in range(n):
         pipe.set(f"{PREFIX}avalanche:{i}", i, ex=60)
@@ -120,7 +120,7 @@ def set_many_uniform(n: int = 20) -> None:
 
 
 def set_many_jitter(n: int = 20) -> None:
-    """TTL 加随机抖动 → 过期时间打散。"""
+    """TTL 加随机抖动 → 过期时间打散."""
     pipe = r.pipeline()
     for i in range(n):
         ttl = 60 + random.randint(0, 30)   # 60~90 秒

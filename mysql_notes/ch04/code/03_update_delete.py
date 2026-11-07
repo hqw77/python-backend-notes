@@ -1,11 +1,11 @@
-"""第四章 · 案例 3：改数据的两写法,删数据的两种取舍。
+"""第四章 . 案例 3:改数据的两写法,删数据的两种取舍.
 
-学到什么：
-    改单个对象 → 直接改属性,脏检查生成 UPDATE；
-    批量改 → 用 update() 语句,一条 SQL 改一批；
-    删数据 → 软删（is_deleted=1）保留行,硬删（DELETE）不可恢复。
+学到什么:
+    改单个对象 → 直接改属性,脏检查生成 UPDATE;
+    批量改 → 用 update() 语句,一条 SQL 改一批;
+    删数据 → 软删(is_deleted=1)保留行,硬删(DELETE)不可恢复.
 
-怎么跑：
+怎么跑:
     export MYSQL_PASSWORD=你的密码
     python mysql_notes/ch04/code/03_update_delete.py
 """

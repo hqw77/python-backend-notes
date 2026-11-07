@@ -1,11 +1,11 @@
-"""第四章 · 案例 2：条件查询、排序、分页。
+"""第四章 . 案例 2:条件查询,排序,分页.
 
-学到什么：
-    分页不是拿全部再切片,而是让数据库 LIMIT/OFFSET；
-    总数要单独 COUNT,别用 len(rows) 冒充。
-    select() 是 2.0 的写法,session.query() 是 1.x 遗留。
+学到什么:
+    分页不是拿全部再切片,而是让数据库 LIMIT/OFFSET;
+    总数要单独 COUNT,别用 len(rows) 冒充.
+    select() 是 2.0 的写法,session.query() 是 1.x 遗留.
 
-怎么跑：
+怎么跑:
     export MYSQL_PASSWORD=你的密码
     python mysql_notes/ch04/code/02_query.py
 """

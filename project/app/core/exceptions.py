@@ -1,4 +1,4 @@
-"""业务异常。service 层抛出,由全局处理器统一转成 HTTP 响应。"""
+"""业务异常.service 层抛出,由全局处理器统一转成 HTTP 响应."""
 
 
 class AppError(Exception):
@@ -19,14 +19,14 @@ class ConflictError(AppError):
 
 
 class UnauthorizedError(AppError):
-    """未登录、令牌无效或已过期。"""
+    """未登录,令牌无效或已过期."""
 
     def __init__(self, message: str = "未认证") -> None:
         super().__init__(message, status_code=401)
 
 
 class ForbiddenError(AppError):
-    """已登录但没有权限。"""
+    """已登录但没有权限."""
 
     def __init__(self, message: str = "没有权限") -> None:
         super().__init__(message, status_code=403)

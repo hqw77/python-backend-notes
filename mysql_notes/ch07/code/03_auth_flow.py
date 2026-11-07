@@ -1,10 +1,10 @@
-"""第七章 · 案例 3：带令牌访问,以及角色权限。
+"""第七章 . 案例 3:带令牌访问,以及角色权限.
 
-学到什么：
-    不带令牌 → 401；令牌无效 → 401；已登录但角色不够 → 403。
-    401 是"你是谁我不知道",403 是"我知道你是谁,但你不能干这个"。
+学到什么:
+    不带令牌 → 401;令牌无效 → 401;已登录但角色不够 → 403.
+    401 是"你是谁我不知道",403 是"我知道你是谁,但你不能干这个".
 
-怎么跑：
+怎么跑:
     export MYSQL_PASSWORD=你的密码
     python mysql_notes/ch07/code/03_auth_flow.py
 """
@@ -33,7 +33,7 @@ def show(title: str) -> None:
 
 
 def grant_admin(user_id: int) -> None:
-    """直接改数据库授予 admin（正常流程需要另一个管理员来授权）。"""
+    """直接改数据库授予 admin(正常流程需要另一个管理员来授权)."""
     with SessionLocal() as db:
         user = db.get(User, user_id)
         admin = db.scalar(select(Role).where(Role.name == "admin"))

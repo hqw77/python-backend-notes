@@ -1,10 +1,10 @@
-"""第七章 · 案例 4：转账 —— 事务实战。
+"""第七章 . 案例 4:转账 - 事务实战.
 
-学到什么：
-    转账要改两行数据,必须在一个事务里：要么都成功,要么都回滚。
-    余额不足时抛业务异常,两边余额都不能变。
+学到什么:
+    转账要改两行数据,必须在一个事务里:要么都成功,要么都回滚.
+    余额不足时抛业务异常,两边余额都不能变.
 
-怎么跑：
+怎么跑:
     export MYSQL_PASSWORD=你的密码
     python mysql_notes/ch07/code/04_transfer.py
 """
@@ -48,7 +48,7 @@ if __name__ == "__main__":
                 json={"username": name, "phone": f"{phone_prefix}{STAMP:08d}", "password": "secret123"},
             )
             uid = r.json()["id"]
-            # 注册接口不开放余额设置,直接改库（模拟"已有余额"）
+            # 注册接口不开放余额设置,直接改库(模拟"已有余额")
             with SessionLocal() as db:
                 u = db.get(User, uid)
                 u.balance = Decimal(balance)

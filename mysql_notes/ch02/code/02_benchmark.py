@@ -1,12 +1,12 @@
-"""压测对比：每次新建连接 vs 从连接池借。
+"""压测对比:每次新建连接 vs 从连接池借.
 
-运行：
+运行:
     export MYSQL_PASSWORD=你的密码
     python mysql_notes/ch02/code/benchmark.py
 
-看两件事：
-    1. 耗时差距 —— 建连接要 TCP 握手 + 认证,比执行 SELECT 1 贵得多
-    2. 连接数   —— 裸连版本会把 max_connections 打满,池化版恒定在上限之内
+看两件事:
+    1. 耗时差距 - 建连接要 TCP 握手 + 认证,比执行 SELECT 1 贵得多
+    2. 连接数   - 裸连版本会把 max_connections 打满,池化版恒定在上限之内
 """
 
 import time
@@ -21,7 +21,7 @@ WORKERS = 20     # 同时多少个线程
 
 
 def query_once_raw():
-    """裸连接：connect -> 查 -> close,每次都是一条新的 TCP 连接。"""
+    """裸连接:connect -> 查 -> close,每次都是一条新的 TCP 连接."""
     conn = pymysql.connect(**DB_CONFIG)
     try:
         with conn.cursor() as cur:
@@ -32,7 +32,7 @@ def query_once_raw():
 
 
 def query_once_pool():
-    """连接池：借 -> 查 -> 还,物理连接始终复用。"""
+    """连接池:借 -> 查 -> 还,物理连接始终复用."""
     conn = get_conn()
     try:
         with conn.cursor() as cur:

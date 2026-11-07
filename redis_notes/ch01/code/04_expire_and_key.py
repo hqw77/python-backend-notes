@@ -1,10 +1,10 @@
-"""Redis 第一章 · 案例 4：过期时间与 key 管理。
+"""Redis 第一章 . 案例 4:过期时间与 key 管理.
 
-学到什么：
-    TTL 是缓存的生命线；SCAN 替代 KEYS；命名规范让 key 可维护。
+学到什么:
+    TTL 是缓存的生命线;SCAN 替代 KEYS;命名规范让 key 可维护.
 
-怎么跑：
-    python redis/ch01/code/04_expire_and_key.py
+怎么跑:
+    python redis_notes/ch01/code/04_expire_and_key.py
 """
 
 import time

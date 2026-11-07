@@ -41,8 +41,8 @@ Python 客户端:`redis`(redis-py 8.1)。
 运行方式(在仓库根目录):
 
 ```bash
-python redis/ch01/code/01_connect.py
-python redis/ch02/code/03_consistency.py
+python redis_notes/ch01/code/01_connect.py
+python redis_notes/ch02/code/03_consistency.py
 ```
 
 所有案例自带 `demo:` 前缀,结束时会自行清理,不影响其他数据。
@@ -52,7 +52,7 @@ python redis/ch02/code/03_consistency.py
 与 `mysql_notes/` 一致:
 
 ```plain
-redis/
+redis_notes/
 ├── README.md
 ├── chNN/
 │   ├── notes/        # 笔记(教材骨架 + 通俗理解注解 + 案例引用)

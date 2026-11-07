@@ -1,10 +1,10 @@
-"""第六章 · 案例 1：Pydantic 校验 —— 请求还没到业务层就被挡下来。
+"""第六章 . 案例 1:Pydantic 校验 - 请求还没到业务层就被挡下来.
 
-学到什么：
-    schema 管「格式对不对」,service 管「业务允不允许」。
-    校验失败时 FastAPI 自动返回 422,你一行 if 都不用写。
+学到什么:
+    schema 管"格式对不对",service 管"业务允不允许".
+    校验失败时 FastAPI 自动返回 422,你一行 if 都不用写.
 
-怎么跑：
+怎么跑:
     export MYSQL_PASSWORD=你的密码
     python mysql_notes/ch06/code/01_schemas.py
 """

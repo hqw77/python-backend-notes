@@ -1,6 +1,6 @@
-"""用户接口：HTTP 层,只负责收参数、返响应、定状态码。
+"""用户接口:HTTP 层,只负责收参数,返响应,定状态码.
 
-业务全在 user_service；这里连 SQL 都不出现。
+业务全在 user_service;这里连 SQL 都不出现.
 """
 
 from fastapi import APIRouter, Depends, Query, status
@@ -62,7 +62,7 @@ def delete_user(user_id: int, db: Session = Depends(get_db)) -> None:
     user_service.soft_delete(db, user_id)
 
 
-# ---- 角色管理（第七章）--------------------------------------------
+# ---- 角色管理(第七章)--------------------------------------------
 
 
 class RoleAssignIn(BaseModel):

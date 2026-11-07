@@ -8,7 +8,7 @@ def get_user_by_id(user_id):
             cur.execute("SELECT id, username, balance FROM users WHERE id = %s", (user_id,))
             return cur.fetchone()
     finally:
-        conn.close()   # 归还连接（不是销毁！）
+        conn.close()   # 归还连接(不是销毁!)
 
 def create_user(username, phone, balance=0.00):
     """插入新用户"""

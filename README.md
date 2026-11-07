@@ -36,17 +36,17 @@ mysql_notes/ch01/
 | 第七章 | 完整项目实战（认证 / 权限 / 事务 / 测试） | 已完成 | `mysql_notes/ch07/notes/` | `mysql_notes/ch07/code/` + `project/app/core/security.py`、`project/app/routers/auth.py`、`project/tests/` |
 | 第八章 | 面试题与项目复盘 | 已完成 | `mysql_notes/ch08/notes/` | — |
 
-### 第三部分 · Redis（`redis/`）
+### 第三部分 · Redis（`redis_notes/`）
 
 | 章节 | 主题 | 状态 | 笔记 | 代码 |
 | --- | --- | --- | --- | --- |
-| ch01 | Redis 基础：五种类型、过期、Python 操作 | 已完成 | `redis/ch01/notes/` | `redis/ch01/code/`（4 个案例） |
-| ch02 | 缓存设计：Cache-Aside、穿透 / 击穿 / 雪崩、一致性 | 已完成 | `redis/ch02/notes/` | `redis/ch02/code/`（3 个案例） |
+| ch01 | Redis 基础：五种类型、过期、Python 操作 | 已完成 | `redis_notes/ch01/notes/` | `redis_notes/ch01/code/`（4 个案例） |
+| ch02 | 缓存设计：Cache-Aside、穿透 / 击穿 / 雪崩、一致性 | 已完成 | `redis_notes/ch02/notes/` | `redis_notes/ch02/code/`（3 个案例） |
 | ch03 | 接入 `project/`：配置、缓存服务、失效、测试 | 待开始 | — | — |
 
-### 第二部分 · FastAPI 深入（`fastapi/`）
+### 第二部分 · FastAPI 深入（`fastapi_notes/`）
 
-待开始,规划见 [fastapi/README.md](fastapi/README.md)。
+待开始,规划见 [fastapi_notes/README.md](fastapi_notes/README.md)。
 
 ## 目录结构
 
@@ -67,9 +67,11 @@ python-backend-notes/
 │   ├── ch08/                     # 面试题与项目复盘
 │   ├── extras/notes/             # 番外01：Alembic 数据库迁移
 │   └── practice/                 # 早期零散练习
-├── fastapi/                      # 第二部分：FastAPI 深入（待开始）
+├── fastapi_notes/                # 第二部分：FastAPI 深入（待开始）
 │   └── README.md
-├── redis/                        # 第三部分：Redis 缓存（进行中）
+├── redis_notes/                  # 第三部分：Redis 缓存（知识部分已完成）
+│   ├── ch01/                    # Redis 基础：五种类型、过期、Python 操作
+│   ├── ch02/                    # 缓存设计：Cache-Aside、穿透/击穿/雪崩、一致性
 │   └── README.md
 ├── project/                      # 共享工程：13 个接口的可运行系统
 │   ├── app/                      # 应用代码（main / deps / core / db / models / schemas / services / routers）
@@ -83,7 +85,7 @@ python-backend-notes/
 └── README.md
 ```
 
-> `mysql_notes/`、`fastapi/`、`redis/` 是三条学习线,`project/` 是三条线共用的工程产物。
+> `mysql_notes/`、`fastapi_notes/`、`redis_notes/` 是三条学习线,`project/` 是三条线共用的工程产物。
 > 章节案例通过 `sys.path` 引用 `project/app`,但工程本身不依赖任何笔记目录。
 >
 > 工程的使用说明(接口清单、配置项、认证流程、设计说明)见 [project/README.md](project/README.md)。

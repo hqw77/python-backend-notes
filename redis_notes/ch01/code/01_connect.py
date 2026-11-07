@@ -1,14 +1,14 @@
-"""Redis 第一章 · 案例 1：连接与连接池。
+"""Redis 第一章 . 案例 1:连接与连接池.
 
-学到什么：
+学到什么:
     1. 单连接与连接池的区别
     2. decode_responses 的作用
-    3. 怎么看服务端版本、当前 key 数量
+    3. 怎么看服务端版本,当前 key 数量
 
-怎么跑：
-    python redis/ch01/code/01_connect.py
+怎么跑:
+    python redis_notes/ch01/code/01_connect.py
 
-前提：Redis 已在 127.0.0.1:6379 运行。
+前提:Redis 已在 127.0.0.1:6379 运行.
 """
 
 import redis

@@ -1,11 +1,11 @@
-"""第四章 · 案例 1：新增一条数据,以及唯一键冲突长什么样。
+"""第四章 . 案例 1:新增一条数据,以及唯一键冲突长什么样.
 
-学到什么：
-    add() 只是把对象放进 Session 的 new 集合；commit() 才真的 INSERT。
-    commit 之后 refresh() 才能拿到数据库生成的 created_at。
-    用户名/手机号重复时,错误在 commit 那一刻才炸,抛 IntegrityError。
+学到什么:
+    add() 只是把对象放进 Session 的 new 集合;commit() 才真的 INSERT.
+    commit 之后 refresh() 才能拿到数据库生成的 created_at.
+    用户名/手机号重复时,错误在 commit 那一刻才炸,抛 IntegrityError.
 
-怎么跑：
+怎么跑:
     export MYSQL_PASSWORD=你的密码
     python mysql_notes/ch04/code/01_add.py
 """
@@ -14,7 +14,7 @@ import sys
 import time
 from pathlib import Path
 
-# 让脚本能从仓库根目录 import app 包（文件在 mysql_notes/ch04/code/,往上三级是仓库根）
+# 让脚本能从仓库根目录 import app 包(文件在 mysql_notes/ch04/code/,往上三级是仓库根)
 sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "project"))
 
 from sqlalchemy.exc import IntegrityError  # noqa: E402

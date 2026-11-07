@@ -1,10 +1,10 @@
-"""第五章 · 案例 1：一对多关系 —— 一个用户多张订单。
+"""第五章 . 案例 1:一对多关系 - 一个用户多张订单.
 
-学到什么：
-    relationship 让你从对象直接走到关联对象：user.orders 是一组 Order。
-    默认是「懒加载」：访问 user.orders 的那一刻才发 SELECT,不是查 User 时一起查。
+学到什么:
+    relationship 让你从对象直接走到关联对象:user.orders 是一组 Order.
+    默认是"懒加载":访问 user.orders 的那一刻才发 SELECT,不是查 User 时一起查.
 
-怎么跑：
+怎么跑:
     export MYSQL_PASSWORD=你的密码
     python mysql_notes/ch05/code/01_relationship.py
 """

@@ -1,6 +1,6 @@
-"""认证业务：注册与登录。
+"""认证业务:注册与登录.
 
-密码进数据库之前先哈希；登录时用哈希校验,明文不落库、不进日志。
+密码进数据库之前先哈希;登录时用哈希校验,明文不落库,不进日志.
 """
 
 from sqlalchemy import or_, select
@@ -13,7 +13,7 @@ from app.models import User
 
 
 def register(db: Session, username: str, phone: str, password: str) -> User:
-    """注册新用户。用户名或手机号重复时抛 ConflictError(409)。"""
+    """注册新用户.用户名或手机号重复时抛 ConflictError(409)."""
     exists = db.scalar(
         select(User).where(or_(User.username == username, User.phone == phone))
     )
@@ -32,9 +32,9 @@ def register(db: Session, username: str, phone: str, password: str) -> User:
 
 
 def authenticate(db: Session, username: str, password: str) -> User:
-    """校验用户名与密码。失败时抛 UnauthorizedError(401)。
+    """校验用户名与密码.失败时抛 UnauthorizedError(401).
 
-    注意：用户名不存在与密码错误返回同一条提示,避免被用来枚举用户。
+    注意:用户名不存在与密码错误返回同一条提示,避免被用来枚举用户.
     """
     user = db.scalar(select(User).where(User.username == username))
     if user is None or user.is_deleted:

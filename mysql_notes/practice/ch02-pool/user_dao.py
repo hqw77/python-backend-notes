@@ -1,6 +1,6 @@
-"""用户管理 DAO：功能与 legacy 版一致,区别只在连接从池里借。
+"""用户管理 DAO:功能与 legacy 版一致,区别只在连接从池里借.
 
-每借必还：conn.close() 对池连接而言是归还,不是断开。
+每借必还:conn.close() 对池连接而言是归还,不是断开.
 """
 
 from pymysql.cursors import DictCursor

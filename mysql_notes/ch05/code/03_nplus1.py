@@ -1,10 +1,10 @@
-"""第五章 · 案例 3：N+1 查询 —— 关系映射最容易踩的性能坑。
+"""第五章 . 案例 3:N+1 查询 - 关系映射最容易踩的性能坑.
 
-学到什么：
-    懒加载下,N 个用户就要发 1 + N 条 SQL；
-    selectinload 只发 2 条（1 条查用户,1 条 IN 查所有订单）,与 N 无关。
+学到什么:
+    懒加载下,N 个用户就要发 1 + N 条 SQL;
+    selectinload 只发 2 条(1 条查用户,1 条 IN 查所有订单),与 N 无关.
 
-怎么跑：
+怎么跑:
     export MYSQL_PASSWORD=你的密码
     python mysql_notes/ch05/code/03_nplus1.py
 """

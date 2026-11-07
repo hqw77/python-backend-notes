@@ -1,10 +1,10 @@
-"""第四章 · 案例 4：批量写入的差距,以及为什么要有 service 层。
+"""第四章 . 案例 4:批量写入的差距,以及为什么要有 service 层.
 
-学到什么：
-    逐条 commit 是一百次网络往返；add_all + 一次 commit 快一个数量级。
-    同一套操作封装进 service 后,调用方只剩一行,且异常已经翻译成业务语义。
+学到什么:
+    逐条 commit 是一百次网络往返;add_all + 一次 commit 快一个数量级.
+    同一套操作封装进 service 后,调用方只剩一行,且异常已经翻译成业务语义.
 
-怎么跑：
+怎么跑:
     export MYSQL_PASSWORD=你的密码
     python mysql_notes/ch04/code/04_batch_and_service.py
 """
