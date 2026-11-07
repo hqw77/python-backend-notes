@@ -46,7 +46,10 @@ mysql_notes/ch01/
 
 ### 第二部分 · FastAPI 深入（`fastapi_notes/`）
 
-待开始,规划见 [fastapi_notes/README.md](fastapi_notes/README.md)。
+| 章节 | 主题 | 状态 | 笔记 | 代码 |
+| --- | --- | --- | --- | --- |
+| ch01 | 依赖注入进阶：依赖缓存、子依赖、类依赖、yield 清理 | 已完成 | `fastapi_notes/ch01/notes/` | `fastapi_notes/ch01/code/`（4 个案例）+ `project/app/core/pagination.py`、`project/tests/test_pagination.py` |
+| ch02 ~ ch07 | 中间件 / 异步 / 分层 / 可观测性 / 文档 / 测试进阶 | 待开始 | — | — |
 
 ## 目录结构
 
@@ -67,7 +70,8 @@ python-backend-notes/
 │   ├── ch08/                     # 面试题与项目复盘
 │   ├── extras/notes/             # 番外01：Alembic 数据库迁移
 │   └── practice/                 # 早期零散练习
-├── fastapi_notes/                # 第二部分：FastAPI 深入（待开始）
+├── fastapi_notes/                # 第二部分：FastAPI 深入（进行中）
+│   ├── ch01/                    # 依赖注入进阶
 │   └── README.md
 ├── redis_notes/                  # 第三部分：Redis 缓存（知识部分已完成）
 │   ├── ch01/                    # Redis 基础：五种类型、过期、Python 操作

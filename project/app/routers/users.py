@@ -3,10 +3,11 @@
 业务全在 user_service;这里连 SQL 都不出现.
 """
 
-from fastapi import APIRouter, Depends, Query, status
+from fastapi import APIRouter, Depends, status
 from pydantic import BaseModel, Field
 from sqlalchemy.orm import Session
 
+from app.core.pagination import PageParams
 from app.deps import get_db, require_role
 from app.schemas.user import UserCreate, UserOut, UserPage, UserUpdateBalance
 from app.services import user_cache, user_service
@@ -16,12 +17,11 @@ router = APIRouter(prefix="/users", tags=["users"])
 
 @router.get("", response_model=UserPage, summary="用户列表(分页)")
 def list_users(
-    page: int = Query(1, ge=1, description="页码,从 1 开始"),
-    size: int = Query(10, ge=1, le=100, description="每页条数,最大 100"),
+    p: PageParams = Depends(),
     db: Session = Depends(get_db),
 ) -> UserPage:
-    items, total = user_service.list_users(db, page=page, size=size)
-    return UserPage(total=total, page=page, size=size, items=items)
+    items, total = user_service.list_users(db, page=p.page, size=p.size)
+    return UserPage(total=total, page=p.page, size=p.size, items=items)
 
 
 @router.get("/{user_id}", response_model=UserOut, summary="用户详情(带缓存)")
