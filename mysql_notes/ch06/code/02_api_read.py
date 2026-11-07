@@ -32,7 +32,7 @@ if __name__ == "__main__":
         r = client.get("/health")
         print("    状态码:", r.status_code, " 响应:", r.json())
 
-        show("② 用户列表（分页）")
+        show("② 用户列表(分页)")
         r = client.get("/users", params={"page": 1, "size": 2})
         body = r.json()
         print("    状态码:", r.status_code)
@@ -51,7 +51,7 @@ if __name__ == "__main__":
         print("    响应:", r.json())
         print("    ← 这行 JSON 来自 main.py 里的 AppError 处理器")
 
-        show("⑤ 参数不合法 → 422（FastAPI 自动挡）")
+        show("⑤ 参数不合法 → 422(FastAPI 自动挡)")
         r = client.get("/users", params={"size": 999})
         print("    状态码:", r.status_code)
         print("    第一条错误:", r.json()["detail"][0]["msg"])

@@ -35,14 +35,14 @@ if __name__ == "__main__":
     prefix = f"bt{stamp}"
 
     with SessionLocal() as db:
-        show(f"① 逐条 commit：{ROWS} 条")
+        show(f"① 逐条 commit:{ROWS} 条")
         start = time.perf_counter()
         for i in range(ROWS):
             db.add(User(username=f"{prefix}_a{i}", phone=f"135{stamp}{i:03d}"[:20]))
             db.commit()                      # ⚠️ 每条一次网络往返
         slow = time.perf_counter() - start
 
-        show(f"② add_all + 一次 commit：{ROWS} 条")
+        show(f"② add_all + 一次 commit:{ROWS} 条")
         start = time.perf_counter()
         db.add_all([
             User(username=f"{prefix}_b{i}", phone=f"134{stamp}{i:03d}"[:20])
@@ -63,7 +63,7 @@ if __name__ == "__main__":
         print("    查询:", fetched)
 
         updated = user_service.update_balance(db, user.id, Decimal("150.00"))
-        print("    改余额:", updated.balance, "（50 + 150）")
+        print("    改余额:", updated.balance, "(50 + 150)")
 
         page, total = user_service.list_users(db, page=1, size=3)
         print(f"    分页: 共 {total} 条,本页 {len(page)} 条")

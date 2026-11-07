@@ -23,7 +23,7 @@ class UserCreate(BaseModel):
 class UserUpdateBalance(BaseModel):
     """调整余额的入参.amount 可正可负."""
 
-    amount: Decimal = Field(description="调整金额,正数加、负数减")
+    amount: Decimal = Field(description="调整金额,正数加,负数减")
 
 
 class UserOut(BaseModel):

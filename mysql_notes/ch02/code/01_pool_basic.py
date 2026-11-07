@@ -37,11 +37,11 @@ if __name__ == "__main__":
         finally:
             c.close()
     print("    三次借到的连接 id:", ids)
-    print(f"    去重后只有 {len(set(ids))} 个 —— 正好是池子预建的连接数,没有新建")
+    print(f"    去重后只有 {len(set(ids))} 个 - 正好是池子预建的连接数,没有新建")
 
     show("③ 池子的上限")
     print(f"    maxconnections = {MAX_CONNECTIONS}")
     print("    刚才 3 次借还都归还了,池子没有泄漏")
 
     close_pool()
-    print("\n池子已关闭。")
+    print("\n池子已关闭.")

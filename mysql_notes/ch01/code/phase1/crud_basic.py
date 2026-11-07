@@ -51,4 +51,4 @@ try:
     run_sql()
 finally:
     conn.close()
-    print("🔒 数据库连接已关闭。")
+    print("🔒 数据库连接已关闭.")

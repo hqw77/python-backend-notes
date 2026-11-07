@@ -30,7 +30,7 @@ def create_user(
         db.commit()
     except IntegrityError as exc:          # ⚠️ 唯一键冲突在这里才会暴露
         db.rollback()
-        raise ConflictError(f"用户名或手机号已存在：{username}") from exc
+        raise ConflictError(f"用户名或手机号已存在:{username}") from exc
     db.refresh(user)                       # 拿回数据库生成的值(id / created_at)
     return user
 

@@ -18,7 +18,7 @@ def run_ddl():
         """
         cur.execute(create_sql)
         conn.commit()
-        print("✅ tags 表创建成功！")
+        print("✅ tags 表创建成功!")
 
         cur.execute("DESC tags;")
         print("\n--- tags 表结构 ---")

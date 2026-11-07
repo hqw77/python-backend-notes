@@ -33,7 +33,7 @@ if __name__ == "__main__":
     print("    第一次:", h1)
     print("    第二次:", h2)
     print("    两次相同吗:", h1 == h2)
-    print("    → 不同。因为 argon2 每次都会生成新的随机盐")
+    print("    → 不同.因为 argon2 每次都会生成新的随机盐")
 
     show("② 哈希串的结构")
     parts = h1.split("$")
@@ -45,7 +45,7 @@ if __name__ == "__main__":
     print("    哈希值  :", parts[5])
     print("    盐和参数都写在哈希串里,所以不需要单独存盐字段")
 
-    show("③ 校验：正确密码 vs 错误密码")
+    show("③ 校验:正确密码 vs 错误密码")
     print("    正确密码 secret123 →", verify_password("secret123", h1))
     print("    错误密码 secret124 →", verify_password("secret124", h1))
     print("    空密码            →", verify_password("", h1))
@@ -55,14 +55,14 @@ if __name__ == "__main__":
     print("    明文长度  :", len(raw))
     print("    → 哈希后长度固定且远大于明文,无法反推出原文")
 
-    show("⑤ 耗时：故意让暴力破解变慢")
+    show("⑤ 耗时:故意让暴力破解变慢")
     start = time.perf_counter()
     for _ in range(5):
         hash_password(raw)
     cost = (time.perf_counter() - start) / 5
     print(f"    单次哈希约 {cost * 1000:.1f} ms")
-    print("    → 正常登录只算一次,感觉不到；但暴力猜测每秒只能试几十次")
+    print("    → 正常登录只算一次,感觉不到;但暴力猜测每秒只能试几十次")
 
-    show("⑥ 空哈希（历史数据）会怎样")
+    show("⑥ 空哈希(历史数据)会怎样")
     print("    verify_password('secret123', '') →", verify_password("secret123", ""))
-    print("    → 返回 False,不抛异常。老数据没有密码时登录会被拒绝")
+    print("    → 返回 False,不抛异常.老数据没有密码时登录会被拒绝")

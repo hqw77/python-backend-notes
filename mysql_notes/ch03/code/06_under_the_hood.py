@@ -50,7 +50,7 @@ def show_sql(label: str = "") -> None:
         for s in sqls:
             print(f"     发出的 SQL: {s[:90]}")
     else:
-        print(f"     发出的 SQL: （无）" + (f"  ← {label}" if label else ""))
+        print(f"     发出的 SQL: (无)" + (f"  ← {label}" if label else ""))
 
 
 def hr(text: str) -> None:
@@ -63,15 +63,15 @@ if __name__ == "__main__":
     stamp = int(time.time()) % 100000
 
     # =================================================================
-    hr("① 创建 engine 的时候,连上数据库了吗？")
+    hr("① 创建 engine 的时候,连上数据库了吗?")
     print("   engine = create_engine(url)")
     print("   连接池状态:", engine.pool.status())
     take_sql()
-    print("   → 没有连接。create_engine 只是准备好参数和池子,一条 SQL 都没发")
-    print("     （真正连库是在第一次执行 SQL 的时候）")
+    print("   → 没有连接.create_engine 只是准备好参数和池子,一条 SQL 都没发")
+    print("     (真正连库是在第一次执行 SQL 的时候)")
 
     # =================================================================
-    hr("② 第一次查库：连接在这里才建立")
+    hr("② 第一次查库:连接在这里才建立")
     with SessionLocal() as db:
         user = db.get(User, 1)
         print(f"   session.get(User, 1)  →  {user}")
@@ -80,7 +80,7 @@ if __name__ == "__main__":
         print("   → 这时候才真正连上 MySQL,并且连接会留在池子里复用")
 
         # =============================================================
-        hr("③ add 一个对象：它去了哪里？")
+        hr("③ add 一个对象:它去了哪里?")
         take_sql()
         new_user = User(username=f"hood{stamp}", phone=f"132{stamp:08d}", balance=Decimal("0.00"))
         db.add(new_user)
@@ -92,14 +92,14 @@ if __name__ == "__main__":
         print("   → add 只是把它登记到 session.new,没有发 SQL")
 
         # =============================================================
-        hr("④ commit：这时候才 INSERT")
+        hr("④ commit:这时候才 INSERT")
         db.commit()
         print(f"   commit 之后 id = {new_user.id}   ← 主键回来了")
         print(f"   session.new     = {len(db.new)} 个对象    ← 清空了")
         show_sql()
 
         # =============================================================
-        hr("⑤ 改一个属性：为什么不发 SQL？")
+        hr("⑤ 改一个属性:为什么不发 SQL?")
         take_sql()
         old_balance = new_user.balance
         new_user.balance = Decimal("777.00")
@@ -108,13 +108,13 @@ if __name__ == "__main__":
         show_sql()
         print("   → 改属性只打了个标记,数据库毫不知情")
 
-        hr("⑥ commit：这时候才 UPDATE,而且只带变化的列")
+        hr("⑥ commit:这时候才 UPDATE,而且只带变化的列")
         db.commit()
         show_sql()
         print(f"   session.dirty = {len(db.dirty)} 个对象    ← 提交后清空")
 
         # =============================================================
-        hr("⑦ identity map：同一个 id 查两次,是同一个对象吗？")
+        hr("⑦ identity map:同一个 id 查两次,是同一个对象吗?")
         take_sql()
         a = db.get(User, 2)          # 第一次:这个对象还没加载过,要查库
         b = db.get(User, 2)          # 第二次:已经在 session 里了,不再查
@@ -125,17 +125,17 @@ if __name__ == "__main__":
         print(f"   这两次 get 一共发了 {len(same)} 条 SQL")
         take_sql()
         print("   → 第二次没有再查库,直接从 session 缓存里拿的")
-        print("     这叫 identity map：一个 Session 里,一个 id 只对应一个对象")
+        print("     这叫 identity map:一个 Session 里,一个 id 只对应一个对象")
 
         # =============================================================
-        hr("⑧ rollback：改了不提交,会发生什么")
+        hr("⑧ rollback:改了不提交,会发生什么")
         user1 = db.get(User, 1)
         before = user1.balance
         user1.balance = Decimal("1.00")
         print(f"   内存里改成 {user1.balance},数据库里还是 {before}")
         db.rollback()
         take_sql()
-        print(f"   rollback 之后重新查：{db.get(User, 1).balance}")
+        print(f"   rollback 之后重新查:{db.get(User, 1).balance}")
         print("   → 没提交的修改被丢弃了")
 
         # =============================================================
@@ -146,7 +146,7 @@ if __name__ == "__main__":
         print("   已删除本次创建的用户")
 
     print("\n" + "=" * 72)
-    print("跑完这九步,你已经看见 SQLAlchemy 的全部「魔法」了：")
+    print("跑完这九步,你已经看见 SQLAlchemy 的全部'魔法'了:")
     print("  1. engine 只是配置,第一次执行 SQL 才连库")
     print("  2. add 只登记,commit 才 INSERT")
     print("  3. 改属性只打标记,commit 才 UPDATE,且只带变化的列")

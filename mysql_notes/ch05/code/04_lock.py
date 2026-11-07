@@ -55,24 +55,24 @@ if __name__ == "__main__":
         db1.commit()
         print(f"    A 提交后,库里是: {db1.get(User, 1).balance}")
 
-        show("③ B 也扣 300 并提交（它用的是刚才读到的旧值）")
+        show("③ B 也扣 300 并提交(它用的是刚才读到的旧值)")
         u2.balance = u2.balance - Decimal("300.00")     # ⚠️ 基于 888 算的,不知道 A 已经改过
         db2.commit()
         print(f"    B 提交后,库里是: {db2.get(User, 1).balance}")
         print("    正确应该是 888 - 300 - 300 = 288")
-        print("    实际成了 588 —— 少了 300,这就是「丢更新」")
+        print("    实际成了 588 - 少了 300,这就是'丢更新'")
     finally:
         db1.close()
         db2.close()
 
-    show("④ 换成加锁读：SELECT ... FOR UPDATE")
+    show("④ 换成加锁读:SELECT ... FOR UPDATE")
     stmt = select(User).where(User.id == 1).with_for_update()
     print("    生成的 SQL:")
     print("     ", " ".join(str(stmt).split()))
     print("    → 结尾多出的 FOR UPDATE 就是加锁")
-    print("    效果：B 想读这一行时会阻塞,直到 A 提交——读到的一定是最新值")
+    print("    效果:B 想读这一行时会阻塞,直到 A 提交-读到的一定是最新值")
 
-    show("⑤ 更稳的写法：让数据库自己算")
+    show("⑤ 更稳的写法:让数据库自己算")
     with SessionLocal() as db:
         u = db.get(User, 1)
         u.balance = u.balance - Decimal("300.00")
@@ -82,7 +82,7 @@ if __name__ == "__main__":
     print(f"    已恢复为 {ORIGINAL}")
 
     show("结论")
-    print("    并发改同一行有三种解法：")
-    print("      1. SELECT ... FOR UPDATE（悲观锁,最直接）")
-    print("      2. 乐观锁：加 version 列,UPDATE ... WHERE version = 旧值")
-    print("      3. 让数据库算：UPDATE users SET balance = balance - 300（原子操作）")
+    print("    并发改同一行有三种解法:")
+    print("      1. SELECT ... FOR UPDATE(悲观锁,最直接)")
+    print("      2. 乐观锁:加 version 列,UPDATE ... WHERE version = 旧值")
+    print("      3. 让数据库算:UPDATE users SET balance = balance - 300(原子操作)")

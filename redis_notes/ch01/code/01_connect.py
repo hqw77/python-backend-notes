@@ -22,12 +22,12 @@ def show(title: str) -> None:
 
 
 if __name__ == "__main__":
-    show("① 单连接：每次 new 一个,用完即弃")
+    show("① 单连接:每次 new 一个,用完即弃")
     r = redis.Redis(host=HOST, port=PORT, db=0, decode_responses=True)
     print("    PING:", r.ping())
     r.close()
 
-    show("② 连接池：全进程一份,反复复用")
+    show("② 连接池:全进程一份,反复复用")
     pool = redis.ConnectionPool(
         host=HOST,
         port=PORT,
@@ -57,4 +57,4 @@ if __name__ == "__main__":
     print("    DBSIZE:", client.dbsize())
 
     client.close()
-    print("\n完成。单连接用完要 close,池子由进程统一管理。")
+    print("\n完成.单连接用完要 close,池子由进程统一管理.")

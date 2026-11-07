@@ -50,7 +50,7 @@ def require_role(*role_names: str):
     def checker(current_user: User = Depends(get_current_user)) -> User:
         owned = {role.name for role in current_user.roles}
         if not owned & set(role_names):
-            raise ForbiddenError(f"需要角色之一：{', '.join(role_names)}")
+            raise ForbiddenError(f"需要角色之一:{', '.join(role_names)}")
         return current_user
 
     return checker

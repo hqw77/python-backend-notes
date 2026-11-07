@@ -70,7 +70,7 @@ if __name__ == "__main__":
         print("    响应:", r.json())
         print(f"    甲的余额: {balance_of(a_id)}   乙的余额: {balance_of(b_id)}")
 
-        show("③ 甲再转 1000（余额不足）→ 400,且两边都不变")
+        show("③ 甲再转 1000(余额不足)→ 400,且两边都不变")
         before_a, before_b = balance_of(a_id), balance_of(b_id)
         r = client.post("/transfer", json={"to_user_id": b_id, "amount": "1000.00"}, headers=headers)
         print("    状态码:", r.status_code, " 响应:", r.json())

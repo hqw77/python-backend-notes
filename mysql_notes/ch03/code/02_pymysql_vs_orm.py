@@ -54,7 +54,7 @@ class User(Base):
 
 if __name__ == "__main__":
     print("=" * 62)
-    print("【A】PyMySQL：自己写 SQL,拿回字典")
+    print("【A】PyMySQL:自己写 SQL,拿回字典")
     print("=" * 62)
     conn = pymysql.connect(**DB)
     try:
@@ -71,11 +71,11 @@ if __name__ == "__main__":
 
     print()
     print("=" * 62)
-    print("【B】ORM：不写 SQL,拿回对象")
+    print("【B】ORM:不写 SQL,拿回对象")
     print("=" * 62)
     with Session(engine) as session:
         user = session.get(User, 1)
-        print("SQL       : 由 ORM 生成,你看不到（echo=True 可以看到）")
+        print("SQL       : 由 ORM 生成,你看不到(echo=True 可以看到)")
         print("返回类型  :", type(user).__name__)
         print("内容      :", user)
         print("怎么取值  : user.username =", user.username)

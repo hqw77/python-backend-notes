@@ -43,7 +43,7 @@ def upgrade() -> None:
             mysql.TINYINT(1),
             server_default=sa.text("0"),
             nullable=False,
-            comment="软删除标记：0正常,1已删除",
+            comment="软删除标记:0正常,1已删除",
         ),
         sa.Column(
             "created_at",

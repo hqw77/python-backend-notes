@@ -40,12 +40,12 @@ def show(title: str) -> None:
 
 if __name__ == "__main__":
     with SessionLocal() as db:
-        show("① 先查用户（此时不会碰 orders 表）")
+        show("① 先查用户(此时不会碰 orders 表)")
         user = db.get(User, 1)
         print("    user:", user)
-        print("    这一步的 SQL:", take_sql() or "（无）")
+        print("    这一步的 SQL:", take_sql() or "(无)")
 
-        show("② 访问 user.orders —— 懒加载这时候才发 SQL")
+        show("② 访问 user.orders - 懒加载这时候才发 SQL")
         orders = user.orders
         print("    订单数:", len(orders))
         for o in orders:
@@ -53,13 +53,13 @@ if __name__ == "__main__":
         for s in take_sql():
             print("    懒加载发出的 SQL:", s[:100])
 
-        show("③ 反向走：从订单找到用户")
+        show("③ 反向走:从订单找到用户")
         order = db.get(Order, 1)
         print("    order:", order)
         print("    它的用户:", order.user.username)
         take_sql()
 
-        show("④ 用 SQL 直接做关联查询（join）,一次拿完")
+        show("④ 用 SQL 直接做关联查询(join),一次拿完")
         rows = db.execute(
             select(User.username, Order.order_no, Order.total_amount)
             .join(Order, Order.user_id == User.id)     # ⚠️ 没有物理外键,join 条件要自己写
@@ -68,7 +68,7 @@ if __name__ == "__main__":
         for name, no, amount in rows:
             print(f"    {name:<6} {no:<8} {amount}")
 
-        show("⑤ 给某个用户加一张订单（走关系,不用手写 user_id）")
+        show("⑤ 给某个用户加一张订单(走关系,不用手写 user_id)")
         new_order = Order(order_no="ORD900", total_amount=88)
         user.orders.append(new_order)          # 💡 由关系自动填 user_id
         db.commit()

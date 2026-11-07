@@ -131,19 +131,19 @@ def set_many_jitter(n: int = 20) -> None:
 if __name__ == "__main__":
     clean()
 
-    show("① 穿透：查询一个不存在的 id,100 次")
+    show("① 穿透:查询一个不存在的 id,100 次")
     before = db.hits
     for _ in range(100):
         read_plain(999999)
     print(f"    数据库被查了 {db.hits - before} 次  ← 缓存毫无作用")
 
-    show("② 防护后：把空值也缓存")
+    show("② 防护后:把空值也缓存")
     before = db.hits
     for _ in range(100):
         read_with_null_cache(999999)
     print(f"    数据库被查了 {db.hits - before} 次  ← 只有第一次")
 
-    show("③ 击穿：热点 key 不存在,10 个线程同时来")
+    show("③ 击穿:热点 key 不存在,10 个线程同时来")
     r.delete(f"{PREFIX}hot")
     before = db.hits
     threads = [threading.Thread(target=read_no_lock, args=(1,)) for _ in range(10)]
@@ -153,7 +153,7 @@ if __name__ == "__main__":
         t.join()
     print(f"    数据库被查了 {db.hits - before} 次  ← 全部穿透")
 
-    show("④ 防护后：加互斥锁,只放一个进去")
+    show("④ 防护后:加互斥锁,只放一个进去")
     r.delete(f"{PREFIX}hot")
     before = db.hits
     threads = [threading.Thread(target=read_with_lock, args=(1,)) for _ in range(10)]
@@ -163,12 +163,12 @@ if __name__ == "__main__":
         t.join()
     print(f"    数据库被查了 {db.hits - before} 次  ← 只有拿到锁的那个")
 
-    show("⑤ 雪崩：20 个 key 用同一个 TTL")
+    show("⑤ 雪崩:20 个 key 用同一个 TTL")
     set_many_uniform()
     ttls = [r.ttl(f"{PREFIX}avalanche:{i}") for i in range(5)]
     print("    前 5 个 key 的 TTL:", ttls, " ← 完全一样,会同一秒集体过期")
 
-    show("⑥ 防护后：TTL 加随机抖动")
+    show("⑥ 防护后:TTL 加随机抖动")
     set_many_jitter()
     ttls = [r.ttl(f"{PREFIX}jitter:{i}") for i in range(5)]
     print("    前 5 个 key 的 TTL:", ttls, " ← 被打散了")

@@ -37,21 +37,21 @@ def main():
             if choice == '1':
                 name = input("请输入学生姓名: ").strip()
                 if not name:
-                    print("❌ 姓名不能为空！")
+                    print("❌ 姓名不能为空!")
                     continue
                     
                 try:
                     age = int(input("请输入学生年龄: "))
                     score = float(input("请输入学生分数: "))
                 except ValueError:
-                    print("❌ 年龄必须是整数,分数必须是数字！录入取消。")
+                    print("❌ 年龄必须是整数,分数必须是数字!录入取消.")
                     continue
 
                 # 使用 %s 占位符防止 SQL 注入
                 sql = "INSERT INTO students (name, age, score) VALUES (%s, %s, %s)"
                 cur.execute(sql, (name, age, score))
                 conn.commit() # ⚠️ 千万别忘了 commit
-                print(f"✅ 成功录入学生：{name}")
+                print(f"✅ 成功录入学生:{name}")
 
             # 2. 查看所有学生
             elif choice == '2':
@@ -59,7 +59,7 @@ def main():
                 students = cur.fetchall()
                 
                 if not students:
-                    print("📭 当前系统里没有学生数据。")
+                    print("📭 当前系统里没有学生数据.")
                 else:
                     print("\n" + "-"*45)
                     # 使用 f-string 对齐打印,<4 表示左对齐占4位
@@ -76,7 +76,7 @@ def main():
                 try:
                     new_score = float(input("请输入新的分数: "))
                 except ValueError:
-                    print("❌ 分数必须是数字！")
+                    print("❌ 分数必须是数字!")
                     continue
 
                 sql = "UPDATE students SET score = %s WHERE name = %s"
@@ -86,7 +86,7 @@ def main():
                 if affected_rows > 0:
                     print(f"✅ 成功将 {name} 的分数修改为 {new_score}")
                 else:
-                    print(f"⚠️ 没有找到名叫 {name} 的学生。")
+                    print(f"⚠️ 没有找到名叫 {name} 的学生.")
 
             # 4. 删除学生
             elif choice == '4':
@@ -95,21 +95,21 @@ def main():
                 # 先查一下有没有这个人,避免误删或删空
                 cur.execute("SELECT id FROM students WHERE name = %s", (name,))
                 if not cur.fetchone():
-                    print(f"⚠️ 没有找到名叫 {name} 的学生。")
+                    print(f"⚠️ 没有找到名叫 {name} 的学生.")
                     continue
 
                 sql = "DELETE FROM students WHERE name = %s"
                 cur.execute(sql, (name,))
                 conn.commit()
-                print(f"🗑️ 成功删除学生：{name}")
+                print(f"🗑️ 成功删除学生:{name}")
 
             # 5. 退出
             elif choice == '5':
-                print("👋 退出系统,再见！")
+                print("👋 退出系统,再见!")
                 break
             
             else:
-                print("❌ 无效的选择,请输入 1-5 之间的数字。")
+                print("❌ 无效的选择,请输入 1-5 之间的数字.")
 
     # 退出循环后关闭连接
     conn.close()

@@ -80,17 +80,17 @@ if __name__ == "__main__":
     for k in r.scan_iter(f"{PREFIX}*"):
         r.delete(k)
 
-    show("① 第一次读：缓存为空,穿透到数据库")
+    show("① 第一次读:缓存为空,穿透到数据库")
     before = db.query_count
     print("    结果:", get_user_cached(1))
     print(f"    数据库查询次数: {db.query_count - before}")
 
-    show("② 第二次读：直接命中缓存")
+    show("② 第二次读:直接命中缓存")
     before = db.query_count
     print("    结果:", get_user_cached(1))
     print(f"    数据库查询次数: {db.query_count - before}  ← 没有增长")
 
-    show("③ 连续读 100 次：只有第一次查库")
+    show("③ 连续读 100 次:只有第一次查库")
     before = db.query_count
     start = time.perf_counter()
     for _ in range(100):
@@ -99,16 +99,16 @@ if __name__ == "__main__":
     print(f"    数据库查询次数: {db.query_count - before}")
     print(f"    100 次总耗时: {cost:.1f} ms  平均 {cost / 100:.2f} ms/次")
 
-    show("④ 写操作：改库 + 删缓存")
+    show("④ 写操作:改库 + 删缓存")
     update_user_balance(1, "588.00")
     print("    缓存还在吗:", r.exists(f"{PREFIX}user:1"))
 
-    show("⑤ 写后再读：会重新加载到最新值")
+    show("⑤ 写后再读:会重新加载到最新值")
     before = db.query_count
     print("    结果:", get_user_cached(1))
     print(f"    数据库查询次数: {db.query_count - before}  ← 重建了一次")
 
-    show("⑥ 对比：不走缓存要多久")
+    show("⑥ 对比:不走缓存要多久")
     start = time.perf_counter()
     for _ in range(100):
         db.get_user(1)

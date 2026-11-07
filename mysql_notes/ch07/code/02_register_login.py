@@ -55,7 +55,7 @@ if __name__ == "__main__":
         )
         print("    状态码:", r.status_code, " 响应:", r.json())
 
-        show("③ 密码太短 → 422（schema 拦下）")
+        show("③ 密码太短 → 422(schema 拦下)")
         r = client.post(
             "/auth/register",
             json={"username": f"x{STAMP}", "phone": f"138{STAMP:08d}", "password": "123"},
@@ -70,7 +70,7 @@ if __name__ == "__main__":
         print("    令牌前 40 字符:", token[:40], "...")
         print("    有效期(秒):", r.json()["expires_in"])
 
-        show("⑤ 密码错误 → 401（提示不区分原因）")
+        show("⑤ 密码错误 → 401(提示不区分原因)")
         r = client.post("/auth/login", json={"username": username, "password": "wrong-pass"})
         print("    状态码:", r.status_code, " 响应:", r.json())
 

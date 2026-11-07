@@ -49,7 +49,7 @@ class User(Base):
         TINYINT(1),
         nullable=False,
         server_default=text("0"),
-        comment="软删除标记：0正常,1已删除",
+        comment="软删除标记:0正常,1已删除",
     )
     created_at: Mapped[datetime] = mapped_column(
         DateTime,

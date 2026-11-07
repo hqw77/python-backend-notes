@@ -14,7 +14,7 @@ from app.services import user_service
 router = APIRouter(prefix="/users", tags=["users"])
 
 
-@router.get("", response_model=UserPage, summary="用户列表（分页）")
+@router.get("", response_model=UserPage, summary="用户列表(分页)")
 def list_users(
     page: int = Query(1, ge=1, description="页码,从 1 开始"),
     size: int = Query(10, ge=1, le=100, description="每页条数,最大 100"),
@@ -56,7 +56,7 @@ def update_balance(
 @router.delete(
     "/{user_id}",
     status_code=status.HTTP_204_NO_CONTENT,
-    summary="删除用户（软删）",
+    summary="删除用户(软删)",
 )
 def delete_user(user_id: int, db: Session = Depends(get_db)) -> None:
     user_service.soft_delete(db, user_id)
@@ -82,7 +82,7 @@ def get_user_roles(user_id: int, db: Session = Depends(get_db)) -> RolesOut:
 @router.post(
     "/{user_id}/roles",
     response_model=RolesOut,
-    summary="分配角色（仅 admin）",
+    summary="分配角色(仅 admin)",
     dependencies=[Depends(require_role("admin"))],
 )
 def assign_user_role(

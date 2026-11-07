@@ -51,7 +51,7 @@ if __name__ == "__main__":
         print("    响应:", r.json())
         print("    ← service 抛 ConflictError,main 转成 409")
 
-        show("③ 入参不合法 → 422（还没进 service）")
+        show("③ 入参不合法 → 422(还没进 service)")
         r = client.post("/users", json={"username": "x", "phone": "123"})
         print("    状态码:", r.status_code)
         for e in r.json()["detail"]:
@@ -61,11 +61,11 @@ if __name__ == "__main__":
         r = client.put(f"/users/{user_id}/balance", json={"amount": "50.00"})
         print("    状态码:", r.status_code, " 新余额:", r.json()["balance"])
 
-        show("⑤ 删除（软删）→ 204")
+        show("⑤ 删除(软删)→ 204")
         r = client.delete(f"/users/{user_id}")
         print("    状态码:", r.status_code, " 响应体:", repr(r.text))
 
-        show("⑥ 删除后：列表里消失了,但详情还在")
+        show("⑥ 删除后:列表里消失了,但详情还在")
         r = client.get("/users", params={"size": 100})
         names = [i["username"] for i in r.json()["items"]]
         print(f"    列表里有它吗: {username in names}   ← list 过滤了 is_deleted")
@@ -73,7 +73,7 @@ if __name__ == "__main__":
         print("    详情状态码:", r.status_code, " is_deleted =", r.json()["is_deleted"])
         print("    ⚠️ 详情不过滤软删,这是产品决策,不是 bug")
 
-        show("⑦ 清理：真删掉这条测试数据")
+        show("⑦ 清理:真删掉这条测试数据")
         with SessionLocal() as db:
             u = db.get(User, user_id)
             if u is not None:
@@ -82,6 +82,6 @@ if __name__ == "__main__":
         print("    已清理")
 
     show("状态码速记")
-    print("    200 查到/改成功   201 创建成功   204 删除成功（无响应体）")
-    print("    400 业务参数错    404 查不到      409 冲突（唯一键）")
-    print("    422 格式校验失败（FastAPI 自动）  500 没捕获的异常")
+    print("    200 查到/改成功   201 创建成功   204 删除成功(无响应体)")
+    print("    400 业务参数错    404 查不到      409 冲突(唯一键)")
+    print("    422 格式校验失败(FastAPI 自动)  500 没捕获的异常")

@@ -50,24 +50,24 @@ def title(text: str) -> None:
 
 if __name__ == "__main__":
     # ---------------------------------------------------------------
-    title("① 查一条：SELECT ... WHERE id = 1")
+    title("① 查一条:SELECT ... WHERE id = 1")
 
     print("\n[SQL]")
     print("  SELECT * FROM users WHERE id = 1")
     row = sql_query("SELECT * FROM users WHERE id = %s", (1,))[0]
-    print("  结果：", {k: row[k] for k in ("id", "username", "balance")})
-    print("  类型：", type(row).__name__)
+    print("  结果:", {k: row[k] for k in ("id", "username", "balance")})
+    print("  类型:", type(row).__name__)
 
     print("\n[ORM]")
     print("  session.get(User, 1)")
     with SessionLocal() as db:
         user = db.get(User, 1)
-        print("  结果：", user)
-        print("  类型：", type(user).__name__)
-    print("\n  → 拿到的东西不一样：一个是字典,一个是对象")
+        print("  结果:", user)
+        print("  类型:", type(user).__name__)
+    print("\n  → 拿到的东西不一样:一个是字典,一个是对象")
 
     # ---------------------------------------------------------------
-    title("② 按条件查：SELECT ... WHERE balance > 200")
+    title("② 按条件查:SELECT ... WHERE balance > 200")
 
     print("\n[SQL]")
     print("  SELECT username, balance FROM users WHERE balance > 200 ORDER BY balance DESC")
@@ -89,21 +89,21 @@ if __name__ == "__main__":
     print("    WHERE → .where()   ORDER BY → .order_by()   SELECT → select()")
 
     # ---------------------------------------------------------------
-    title("③ 计数：SELECT COUNT(*)")
+    title("③ 计数:SELECT COUNT(*)")
 
     print("\n[SQL]")
     print("  SELECT COUNT(*) AS n FROM users")
-    print("  结果：", sql_query("SELECT COUNT(*) AS n FROM users")[0]["n"])
+    print("  结果:", sql_query("SELECT COUNT(*) AS n FROM users")[0]["n"])
 
     print("\n[ORM]")
     print("  select(func.count()).select_from(User)")
     with SessionLocal() as db:
         n = db.scalar(select(func.count()).select_from(User))
-        print("  结果：", n)
+        print("  结果:", n)
     print("\n  → func.count() 就是 SQL 里的 COUNT(*)")
 
     # ---------------------------------------------------------------
-    title("④ 改数据：UPDATE ... WHERE id = 1（演示完会回滚）")
+    title("④ 改数据:UPDATE ... WHERE id = 1(演示完会回滚)")
 
     print("\n[SQL]")
     print("  UPDATE users SET balance = 999 WHERE id = 1")
@@ -118,11 +118,11 @@ if __name__ == "__main__":
         u.balance = Decimal("999.00")
         print(f"  改完还没提交,内存里是 {u.balance},数据库里还是 {before}")
         db.rollback()
-        print(f"  回滚后重新查：{db.get(User, 1).balance}")
-    print("\n  → 改属性不发 SQL,commit 才发；这就是第三章讲的脏检查")
+        print(f"  回滚后重新查:{db.get(User, 1).balance}")
+    print("\n  → 改属性不发 SQL,commit 才发;这就是第三章讲的脏检查")
 
     # ---------------------------------------------------------------
-    title("⑤ 对照表：SQL 关键字 ↔ ORM 写法")
+    title("⑤ 对照表:SQL 关键字 ↔ ORM 写法")
 
     mapping = [
         ("SELECT * FROM users", "select(User)"),
@@ -141,4 +141,4 @@ if __name__ == "__main__":
     for sql, orm in mapping:
         print(f"  {sql:<28}{orm}")
 
-    print("\n  一句话：ORM 没有发明新东西,它只是把 SQL 的关键字变成了方法名。")
+    print("\n  一句话:ORM 没有发明新东西,它只是把 SQL 的关键字变成了方法名.")

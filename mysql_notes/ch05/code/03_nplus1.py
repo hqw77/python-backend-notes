@@ -46,7 +46,7 @@ def show(title: str) -> None:
 
 
 if __name__ == "__main__":
-    show("① 懒加载：访问 user.orders 时逐个发 SQL")
+    show("① 懒加载:访问 user.orders 时逐个发 SQL")
     with SessionLocal() as db:
         reset()
         users = db.scalars(select(User)).all()
@@ -55,9 +55,9 @@ if __name__ == "__main__":
         print(f"    用户数: {len(users)}")
         print(f"    'from users' 的 SELECT: {count_users_sql()} 条")
         print(f"    'from orders' 的 SELECT: {count_orders_sql()} 条")
-        print(f"    合计 {count_users_sql() + count_orders_sql()} 条 —— 这就是 N+1")
+        print(f"    合计 {count_users_sql() + count_orders_sql()} 条 - 这就是 N+1")
 
-    show("② selectinload：预先加载关联,只多一条 SQL")
+    show("② selectinload:预先加载关联,只多一条 SQL")
     with SessionLocal() as db:
         reset()
         users = db.scalars(select(User).options(selectinload(User.orders))).all()
@@ -66,7 +66,7 @@ if __name__ == "__main__":
         print(f"    用户数: {len(users)}")
         print(f"    'from users' 的 SELECT: {count_users_sql()} 条")
         print(f"    'from orders' 的 SELECT: {count_orders_sql()} 条")
-        print(f"    合计 {count_users_sql() + count_orders_sql()} 条 —— 与用户数无关")
+        print(f"    合计 {count_users_sql() + count_orders_sql()} 条 - 与用户数无关")
 
     show("③ 两种加载策略对比")
     print("    懒加载 lazy='select'     : 用的时候才查,1 + N 条")
@@ -76,5 +76,5 @@ if __name__ == "__main__":
 
     show("④ 什么时候该用哪个")
     print("    列表页要显示关联信息      → selectinload")
-    print("    一对一、且一定要用        → joinedload")
-    print("    关联数据很大、不一定用    → 就用懒加载,但要小心循环里的 N+1")
+    print("    一对一,且一定要用        → joinedload")
+    print("    关联数据很大,不一定用    → 就用懒加载,但要小心循环里的 N+1")

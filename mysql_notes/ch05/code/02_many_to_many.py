@@ -40,7 +40,7 @@ if __name__ == "__main__":
         db.commit()                          # 💡 中间表由 ORM 自动写
         print("    张三现在的角色:", [r.name for r in user.roles])
 
-        show("③ 反查：哪些用户有 admin 角色")
+        show("③ 反查:哪些用户有 admin 角色")
         for u in admin.users:
             print("   ", u.username)
 
@@ -54,7 +54,7 @@ if __name__ == "__main__":
         for row in rows:
             print("    user_id =", row.user_id, " role_id =", row.role_id)
 
-        show("⑥ 清理：把本次加的关联删掉,库恢复原样")
+        show("⑥ 清理:把本次加的关联删掉,库恢复原样")
         db.execute(delete(user_roles).where(user_roles.c.user_id == 1))
         db.commit()
         print("    已清理")

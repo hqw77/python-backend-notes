@@ -61,6 +61,6 @@ if __name__ == "__main__":
     pooled = run("连接池", query_once_pool)
 
     print(f"\n连接池比裸连接快 {raw / pooled:.1f} 倍")
-    print("注意：差距主要来自建连接的开销,数据量越大差距越明显")
+    print("注意:差距主要来自建连接的开销,数据量越大差距越明显")
 
     close_pool()

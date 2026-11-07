@@ -26,26 +26,26 @@ def show(title: str) -> None:
 
 
 if __name__ == "__main__":
-    show("① 合法数据：直接构造成功")
+    show("① 合法数据:直接构造成功")
     ok = UserCreate(username="张三丰", phone="13800000001", balance=Decimal("100.00"))
     print("    对象:", ok)
     print("    转 dict:", ok.model_dump())
 
-    show("② 用户名太短（min_length=2）")
+    show("② 用户名太短(min_length=2)")
     try:
         UserCreate(username="张", phone="13800000001")
     except ValidationError as exc:
         for e in exc.errors():
             print(f"    字段 {e['loc'][0]}: {e['msg']}")
 
-    show("③ 手机号格式不对（pattern ^1\\d{10}$）")
+    show("③ 手机号格式不对(pattern ^1\\d{10}$)")
     try:
         UserCreate(username="张三丰", phone="12345")
     except ValidationError as exc:
         for e in exc.errors():
             print(f"    字段 {e['loc'][0]}: {e['msg']}")
 
-    show("④ 余额为负（ge=0）")
+    show("④ 余额为负(ge=0)")
     try:
         UserCreate(username="张三丰", phone="13800000001", balance=Decimal("-1"))
     except ValidationError as exc:
@@ -57,5 +57,5 @@ if __name__ == "__main__":
     print("    balance 默认值:", default.balance, "  ← Field(default=...) 生效")
 
     show("小结")
-    print("    schema 层能挡住：类型错、长度错、格式错、范围错")
-    print("    schema 层挡不住：用户名重复、余额不足 —— 那是 service 的事")
+    print("    schema 层能挡住:类型错,长度错,格式错,范围错")
+    print("    schema 层挡不住:用户名重复,余额不足 - 那是 service 的事")

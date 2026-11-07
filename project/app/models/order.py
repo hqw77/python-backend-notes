@@ -29,7 +29,7 @@ class Order(Base):
     user_id: Mapped[int] = mapped_column(INTEGER(unsigned=True), nullable=False, comment="下单用户ID")
     total_amount: Mapped[Decimal] = mapped_column(Numeric(10, 2), nullable=False, comment="订单总金额")
     status: Mapped[int] = mapped_column(
-        TINYINT, nullable=False, server_default=text("0"), comment="状态：0待支付,1已支付,2已发货"
+        TINYINT, nullable=False, server_default=text("0"), comment="状态:0待支付,1已支付,2已发货"
     )
     created_at: Mapped[datetime] = mapped_column(
         DateTime, nullable=False, server_default=text("CURRENT_TIMESTAMP")

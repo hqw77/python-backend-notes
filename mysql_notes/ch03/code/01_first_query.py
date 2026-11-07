@@ -52,9 +52,9 @@ if __name__ == "__main__":
     with Session(engine) as session:
         print("【1】按主键查一条")
         user = session.get(User, 1)
-        print("    返回值类型：", type(user).__name__)
-        print("    对象本身   ：", user)
-        print("    取属性     ：", user.username, "|", user.balance, "|", user.phone)
+        print("    返回值类型:", type(user).__name__)
+        print("    对象本身   :", user)
+        print("    取属性     :", user.username, "|", user.balance, "|", user.phone)
 
         print()
         print("【2】查不到时返回什么")
@@ -63,6 +63,6 @@ if __name__ == "__main__":
         print("    没有抛异常,只是 None")
 
         print()
-        print("【3】把整张表取回来（每行都是一个对象）")
+        print("【3】把整张表取回来(每行都是一个对象)")
         for u in session.scalars(select(User).limit(5)):
             print("   ", u)

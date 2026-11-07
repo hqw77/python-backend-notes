@@ -42,5 +42,5 @@ CREATE TABLE borrows (
     reader_id INT UNSIGNED NOT NULL COMMENT '关联读者ID',
     book_id INT UNSIGNED NOT NULL COMMENT '关联图书ID',
     borrow_date DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '借出时间',
-    return_date DATETIME DEFAULT NULL COMMENT '归还时间,可空（NULL表示还没还）'
+    return_date DATETIME DEFAULT NULL COMMENT '归还时间,可空(NULL表示还没还)'
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COMMENT = '借阅记录表';

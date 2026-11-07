@@ -31,7 +31,7 @@ if __name__ == "__main__":
         total = db.scalar(select(func.count()).select_from(User))
         print("    COUNT(*) =", total)
 
-        show("② 条件查询：余额 > 200,按余额倒序")
+        show("② 条件查询:余额 > 200,按余额倒序")
         stmt = (
             select(User)
             .where(User.balance > 200)
@@ -40,7 +40,7 @@ if __name__ == "__main__":
         for u in db.scalars(stmt):
             print("   ", u)
 
-        show("③ 分页：第 1 页,每页 2 条")
+        show("③ 分页:第 1 页,每页 2 条")
         page, size = 1, 2
         stmt = (
             select(User)
@@ -66,5 +66,5 @@ if __name__ == "__main__":
             print(f"    {name:<8} {balance}")
 
         show("⑥ count 和 len 的区别")
-        print("    总数（COUNT）      :", total)
-        print("    当页条数（len）    :", page1_count, "  ← 只是这一页,不是总数")
+        print("    总数(COUNT)      :", total)
+        print("    当页条数(len)    :", page1_count, "  ← 只是这一页,不是总数")

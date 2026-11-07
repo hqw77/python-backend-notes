@@ -57,7 +57,7 @@ if __name__ == "__main__":
         for u in users:
             print("   ", u)
 
-        show("② 改单个对象：只改属性,commit 时发 UPDATE")
+        show("② 改单个对象:只改属性,commit 时发 UPDATE")
         target = users[0]
         target.balance = Decimal("888.00")
         db.commit()
@@ -65,7 +65,7 @@ if __name__ == "__main__":
             print("    SQL:", s)
         print("    → 只改了 balance 一列")
 
-        show("③ 批量改：一条 SQL 改一批")
+        show("③ 批量改:一条 SQL 改一批")
         result = db.execute(
             update(User).where(User.username.like(f"{prefix}%")).values(balance=0)
         )
@@ -74,16 +74,16 @@ if __name__ == "__main__":
             print("    SQL:", s)
         print("    影响行数:", result.rowcount)
 
-        show("④ 软删除：行还在,只是标记")
+        show("④ 软删除:行还在,只是标记")
         victim = users[1]
         victim.is_deleted = 1
         db.commit()
         take_sql()
         still_there = db.get(User, victim.id)
-        print(f"    is_deleted = {still_there.is_deleted},行仍然存在：{still_there}")
-        print("    业务查询要自己过滤：WHERE is_deleted = 0")
+        print(f"    is_deleted = {still_there.is_deleted},行仍然存在:{still_there}")
+        print("    业务查询要自己过滤:WHERE is_deleted = 0")
 
-        show("⑤ 硬删除：真的没了")
+        show("⑤ 硬删除:真的没了")
         db.execute(delete(User).where(User.id == users[2].id))
         db.commit()
         take_sql()
@@ -95,5 +95,5 @@ if __name__ == "__main__":
         print("    已清理")
 
     show("软删 vs 硬删怎么选")
-    print("    软删：用户可恢复、要留审计、有关联外键不能断 —— 用户表几乎都用这个")
-    print("    硬删：日志、临时数据、明确要求删除（合规）——  才用这个")
+    print("    软删:用户可恢复,要留审计,有关联外键不能断 - 用户表几乎都用这个")
+    print("    硬删:日志,临时数据,明确要求删除(合规)-  才用这个")

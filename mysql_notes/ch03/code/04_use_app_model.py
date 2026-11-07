@@ -27,13 +27,13 @@ from app.db.session import SessionLocal  # noqa: E402
 from app.models import User  # noqa: E402
 
 if __name__ == "__main__":
-    print("模型来自：app.models.user.User")
-    print("引擎来自：app.db.engine.engine")
-    print("会话来自：app.db.session.SessionLocal")
+    print("模型来自:app.models.user.User")
+    print("引擎来自:app.db.engine.engine")
+    print("会话来自:app.db.session.SessionLocal")
     print()
 
     with SessionLocal() as db:
-        print("【1】按主键查（和案例 1 写法一模一样）")
+        print("【1】按主键查(和案例 1 写法一模一样)")
         user = db.get(User, 1)
         print("   ", user)
 
@@ -43,7 +43,7 @@ if __name__ == "__main__":
             print("   ", u)
 
         print()
-        print("【3】和案例 1 对比：差别只在 import")
+        print("【3】和案例 1 对比:差别只在 import")
         print("    案例1:  class User(Base) 写在脚本里")
         print("    案例4:  from app.models import User")
         print("    → 业务代码不需要知道引擎和会话从哪来,这就是分层")

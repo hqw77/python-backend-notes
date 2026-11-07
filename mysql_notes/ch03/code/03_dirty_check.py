@@ -75,18 +75,18 @@ if __name__ == "__main__":
         print(f"    session.dirty = {session.dirty}   ← 对象进去了")
         session.flush()
         sqls = take_sql()
-        print(f"    实际发出去的 SQL：{sqls if sqls else '（没有 UPDATE）'}")
-        print("    结论：进了 dirty 集合 ≠ 一定会发 UPDATE")
+        print(f"    实际发出去的 SQL:{sqls if sqls else '(没有 UPDATE)'}")
+        print("    结论:进了 dirty 集合 ≠ 一定会发 UPDATE")
 
         show("③ 赋一个不同的值,然后 flush")
         user.balance = Decimal("777.00")
         session.flush()
         for s in take_sql():
             print("    SQL:", s)
-        print("    结论：只 UPDATE 变化的那一列,不是整行覆盖")
+        print("    结论:只 UPDATE 变化的那一列,不是整行覆盖")
 
         show("④ rollback 把内存修改一起丢弃")
-        print(f"    回滚前（内存里）：{user.balance}")
+        print(f"    回滚前(内存里):{user.balance}")
         session.rollback()
-        print(f"    回滚后（重新查）：{session.get(User, 1).balance}")
+        print(f"    回滚后(重新查):{session.get(User, 1).balance}")
         print("    数据库里的值从头到尾没变过")
