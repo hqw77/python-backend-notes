@@ -7,6 +7,7 @@ from fastapi.responses import JSONResponse
 
 from app.core.config import settings
 from app.core.exceptions import AppError
+from app.core.middleware import register_middlewares
 from app.db.engine import engine
 from app.db.redis_client import close_redis
 from app.routers import auth, health, users, wallet
@@ -26,6 +27,9 @@ app = FastAPI(
     version="0.1.0",
     lifespan=lifespan,
 )
+
+# 请求 id + 耗时统计, 在注册路由之前挂上
+register_middlewares(app)
 
 app.include_router(health.router)
 app.include_router(auth.router)

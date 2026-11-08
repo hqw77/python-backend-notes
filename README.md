@@ -49,7 +49,8 @@ mysql_notes/ch01/
 | 章节 | 主题 | 状态 | 笔记 | 代码 |
 | --- | --- | --- | --- | --- |
 | ch01 | 依赖注入进阶：依赖缓存、子依赖、类依赖、yield 清理 | 已完成 | `fastapi_notes/ch01/notes/` | `fastapi_notes/ch01/code/`（4 个案例）+ `project/app/core/pagination.py`、`project/tests/test_pagination.py` |
-| ch02 ~ ch07 | 中间件 / 异步 / 分层 / 可观测性 / 文档 / 测试进阶 | 待开始 | — | — |
+| ch02 | 中间件与请求生命周期：请求 id、耗时、CORS、顺序与异常坑 | 已完成 | `fastapi_notes/ch02/notes/` | `fastapi_notes/ch02/code/`（5 个案例）+ `project/app/core/middleware.py`、`project/tests/test_middleware.py` |
+| ch03 ~ ch07 | 异步 / 分层 / 可观测性 / 文档 / 测试进阶 | 待开始 | — | — |
 
 ## 目录结构
 
@@ -72,6 +73,7 @@ python-backend-notes/
 │   └── practice/                 # 早期零散练习
 ├── fastapi_notes/                # 第二部分：FastAPI 深入（进行中）
 │   ├── ch01/                    # 依赖注入进阶
+│   ├── ch02/                    # 中间件与请求生命周期
 │   └── README.md
 ├── redis_notes/                  # 第三部分：Redis 缓存（知识部分已完成）
 │   ├── ch01/                    # Redis 基础：五种类型、过期、Python 操作
