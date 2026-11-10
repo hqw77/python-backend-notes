@@ -51,7 +51,10 @@ mysql_notes/ch01/
 | ch01 | 依赖注入进阶：依赖缓存、子依赖、类依赖、yield 清理 | 已完成 | `fastapi_notes/ch01/notes/` | `fastapi_notes/ch01/code/`（4 个案例）+ `project/app/core/pagination.py`、`project/tests/test_pagination.py` |
 | ch02 | 中间件与请求生命周期：请求 id、耗时、CORS、顺序与异常坑 | 已完成 | `fastapi_notes/ch02/notes/` | `fastapi_notes/ch02/code/`（5 个案例）+ `project/app/core/middleware.py`、`project/tests/test_middleware.py` |
 | ch03 | 后台任务与异步：async def vs def、事件循环阻塞、BackgroundTasks | 已完成 | `fastapi_notes/ch03/notes/` | `fastapi_notes/ch03/code/`（3 个案例）+ `project/app/services/notify_service.py`、`project/tests/test_background.py` |
-| ch04 ~ ch07 | 分层 / 可观测性 / 文档 / 测试进阶 | 待开始 | — | — |
+| ch04 | 分层再设计：ORM vs DTO、Session 边界、排序白名单 | 已完成 | `fastapi_notes/ch04/notes/` | `fastapi_notes/ch04/code/`（2 个案例）+ `project/app/core/pagination.py` 排序、`project/tests/test_pagination.py` |
+| ch05 | 可观测性：日志格式、contextvar 传 request_id | 已完成 | `fastapi_notes/ch05/notes/` | `fastapi_notes/ch05/code/`（2 个案例）+ `project/app/core/logging.py` |
+| ch06 | 文档与契约：OpenAPI、responses 声明错误 | 已完成 | `fastapi_notes/ch06/notes/` | `fastapi_notes/ch06/code/`（2 个案例）+ `project/app/schemas/error.py`、`project/tests/test_openapi.py` |
+| ch07 | 测试进阶：依赖覆盖、事务隔离、parametrize | 已完成 | `fastapi_notes/ch07/notes/` | `fastapi_notes/ch07/code/`（2 个案例）+ `project/tests/test_overrides.py`、`test_validation.py` |
 
 ## 目录结构
 
@@ -76,6 +79,10 @@ python-backend-notes/
 │   ├── ch01/                    # 依赖注入进阶
 │   ├── ch02/                    # 中间件与请求生命周期
 │   ├── ch03/                    # 后台任务与异步
+│   ├── ch04/                    # 分层再设计
+│   ├── ch05/                    # 可观测性
+│   ├── ch06/                    # 文档与契约
+│   ├── ch07/                    # 测试进阶
 │   └── README.md
 ├── redis_notes/                  # 第三部分：Redis 缓存（知识部分已完成）
 │   ├── ch01/                    # Redis 基础：五种类型、过期、Python 操作

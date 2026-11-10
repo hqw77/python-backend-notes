@@ -17,6 +17,16 @@ from app.core.exceptions import AppError, ConflictError, NotFoundError
 from app.models import Role, User
 from app.services import cache
 
+# 排序白名单: 用户能传的值 -> 真实的 SQLAlchemy 排序表达式
+SORT_MAP = {
+    "id": User.id,
+    "-id": User.id.desc(),
+    "balance": User.balance,
+    "-balance": User.balance.desc(),
+    "created_at": User.created_at,
+    "-created_at": User.created_at.desc(),
+}
+
 
 def create_user(
     db: Session,
@@ -44,15 +54,25 @@ def get_user(db: Session, user_id: int) -> User:
     return user
 
 
-def list_users(db: Session, page: int = 1, size: int = 10) -> tuple[list[User], int]:
-    """分页查询,返回 (当页数据, 总数).默认只返回未删除的用户."""
+def list_users(
+    db: Session,
+    page: int = 1,
+    size: int = 10,
+    sort: str = "-id",
+) -> tuple[list[User], int]:
+    """分页查询,返回 (当页数据, 总数).默认只返回未删除的用户.
+
+    sort 只接受白名单里的值, 由 PageParams 的 Literal 保证.
+    这里再兜一层 map.get(), 防止别的地方直接调用时传进来奇怪的值.
+    """
+    order_by = SORT_MAP.get(sort, User.id.desc())
     total = db.scalar(
         select(func.count()).select_from(User).where(User.is_deleted == 0)
     ) or 0
     stmt = (
         select(User)
         .where(User.is_deleted == 0)      # 💡 软删的过滤集中在这里,路由层不用管
-        .order_by(User.id.desc())
+        .order_by(order_by)
         .offset((page - 1) * size)
         .limit(size)
     )

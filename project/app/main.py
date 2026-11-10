@@ -6,6 +6,7 @@ from fastapi import FastAPI, Request
 from fastapi.responses import JSONResponse
 
 from app.core.config import settings
+from app.core.logging import setup_logging
 from app.core.exceptions import AppError
 from app.core.middleware import register_middlewares
 from app.db.engine import engine
@@ -21,6 +22,8 @@ async def lifespan(app: FastAPI):
     engine.dispose()
     close_redis()
 
+
+setup_logging()
 
 app = FastAPI(
     title=settings.app_name,

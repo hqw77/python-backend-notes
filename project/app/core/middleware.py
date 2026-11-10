@@ -15,6 +15,8 @@ import uuid
 
 from fastapi import FastAPI, Request
 
+from app.core.logging import request_id_ctx
+
 logger = logging.getLogger("app.request")
 
 REQUEST_ID_HEADER = "X-Request-ID"
@@ -30,23 +32,24 @@ def register_middlewares(app: FastAPI) -> None:
         # ---- 请求阶段 ----
         request_id = request.headers.get(REQUEST_ID_HEADER) or uuid.uuid4().hex[:12]
         request.state.request_id = request_id
+
+        # 塞进 contextvar, 之后 service / 日志都能拿到同一个 id
+        token = request_id_ctx.set(request_id)
         start = time.perf_counter()
 
-        # ---- 交给路由 ----
-        response = await call_next(request)
+        try:
+            # ---- 交给路由 ----
+            response = await call_next(request)
 
-        # ---- 响应阶段 ----
-        cost_ms = (time.perf_counter() - start) * 1000
-        response.headers[REQUEST_ID_HEADER] = request_id
-        response.headers[PROCESS_TIME_HEADER] = f"{cost_ms:.1f}ms"
+            # ---- 响应阶段 ----
+            cost_ms = (time.perf_counter() - start) * 1000
+            response.headers[REQUEST_ID_HEADER] = request_id
+            response.headers[PROCESS_TIME_HEADER] = f"{cost_ms:.1f}ms"
 
-        if cost_ms > SLOW_THRESHOLD_MS:
-            logger.warning(
-                "慢请求 %s %s %.1fms request_id=%s",
-                request.method,
-                request.url.path,
-                cost_ms,
-                request_id,
-            )
+            if cost_ms > SLOW_THRESHOLD_MS:
+                logger.warning("慢请求 %s %s %.1fms", request.method, request.url.path, cost_ms)
 
-        return response
+            return response
+        finally:
+            # 一定要重置, 否则线上跑久了 contextvar 会被上一个请求的值污染
+            request_id_ctx.reset(token)

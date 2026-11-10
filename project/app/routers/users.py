@@ -9,6 +9,7 @@ from sqlalchemy.orm import Session
 
 from app.core.pagination import PageParams
 from app.deps import get_db, require_role
+from app.schemas.error import RESP_404, RESP_409
 from app.schemas.user import UserCreate, UserOut, UserPage, UserUpdateBalance
 from app.services import user_cache, user_service
 
@@ -20,11 +21,16 @@ def list_users(
     p: PageParams = Depends(),
     db: Session = Depends(get_db),
 ) -> UserPage:
-    items, total = user_service.list_users(db, page=p.page, size=p.size)
+    items, total = user_service.list_users(db, page=p.page, size=p.size, sort=p.sort)
     return UserPage(total=total, page=p.page, size=p.size, items=items)
 
 
-@router.get("/{user_id}", response_model=UserOut, summary="用户详情(带缓存)")
+@router.get(
+    "/{user_id}",
+    response_model=UserOut,
+    summary="用户详情(带缓存)",
+    responses=RESP_404,
+)
 def get_user(user_id: int, db: Session = Depends(get_db)) -> UserOut:
     return user_cache.get_user_out(db, user_id)
 
@@ -34,6 +40,7 @@ def get_user(user_id: int, db: Session = Depends(get_db)) -> UserOut:
     response_model=UserOut,
     status_code=status.HTTP_201_CREATED,
     summary="创建用户",
+    responses=RESP_409,
 )
 def create_user(payload: UserCreate, db: Session = Depends(get_db)) -> UserOut:
     return user_service.create_user(

@@ -1,6 +1,6 @@
 # 第二部分 · FastAPI 深入
 
-> 状态:**进行中（ch01~ch03 已完成）**
+> 状态:**已完成（ch01~ch07 全部写完）**
 > 第一部分 `mysql_notes/` 里的第六章、第七章已经把 FastAPI 的基础用过了(路由、校验、依赖注入、状态码、异常映射)。这里放的是"用得上但基础篇没讲透"的部分。
 
 ## 计划内容
@@ -10,10 +10,10 @@
 | [ch01](ch01/notes/依赖注入进阶.md) | 依赖注入进阶 | `Depends` 的缓存机制、子依赖、类作为依赖、`yield` 依赖的清理时机 | ✅ 完成 |
 | [ch02](ch02/notes/中间件与请求生命周期.md) | 中间件与请求生命周期 | 请求 id 透传、耗时统计、CORS、中间件顺序与异常坑 | ✅ 完成 |
 | [ch03](ch03/notes/后台任务与异步.md) | 后台任务与异步 | `async def` vs `def`、事件循环阻塞、`BackgroundTasks`、何时上 Celery | ✅ 完成 |
-| ch04 | 分层再设计 | 把 service 的返回值从 ORM 对象换成 DTO;分页/排序的统一封装 | ⬜ 待开始 |
-| ch05 | 可观测性 | 结构化日志、慢请求告警、错误上报 | ⬜ 待开始 |
-| ch06 | 文档与契约 | OpenAPI 定制、错误响应统一声明、客户端 SDK 生成 | ⬜ 待开始 |
-| ch07 | 测试进阶 | 依赖覆盖(`dependency_overrides`)、测试库隔离、异步测试 | ⬜ 待开始 |
+| [ch04](ch04/notes/分层再设计.md) | 分层再设计 | ORM vs DTO、Session 边界、排序白名单 | ✅ 完成 |
+| [ch05](ch05/notes/可观测性.md) | 可观测性 | 日志格式、contextvar 传 request_id、日志级别 | ✅ 完成 |
+| [ch06](ch06/notes/文档与契约.md) | 文档与契约 | OpenAPI 来源、responses 声明错误、契约测试 | ✅ 完成 |
+| [ch07](ch07/notes/测试进阶.md) | 测试进阶 | dependency_overrides、事务回滚隔离、parametrize | ✅ 完成 |
 
 ## 案例清单
 
@@ -31,6 +31,14 @@
 | `ch03/code/01_blocking_event_loop.py` | async def 里 time.sleep 拖慢 5 倍 |
 | `ch03/code/02_def_in_threadpool.py` | 同一个阻塞函数, def 比 async def 快 5 倍 |
 | `ch03/code/03_background_tasks.py` | 后台任务把 0.3 秒等待挪到响应之后, 异常被吞 |
+| `ch04/code/01_orm_vs_dto.py` | DetachedInstanceError 复现, DTO 为什么安全 |
+| `ch04/code/02_sort_params.py` | 排序注入演示 + 白名单 + Literal 对比 |
+| `ch05/code/01_logging_basics.py` | 三种日志配置对比, request_id 注入 |
+| `ch05/code/02_contextvar.py` | 全局变量串号 vs contextvar 隔离 |
+| `ch06/code/01_openapi_customize.py` | openapi.json 从哪来, 错误响应为何缺失 |
+| `ch06/code/02_error_contract.py` | responses 声明错误格式 + 契约一致性 |
+| `ch07/code/01_dependency_overrides.py` | 依赖覆盖只影响被覆盖的那个 |
+| `ch07/code/02_transaction_rollback.py` | 事务回滚做测试隔离 |
 
 运行方式(在仓库根目录):
 

@@ -36,3 +36,25 @@ def test_list_users_invalid_page(client):
     """page 小于 1 返回 422."""
     r = client.get("/users?page=0")
     assert r.status_code == 422
+
+
+def test_sort_by_balance(client):
+    """sort=balance 时按余额升序返回."""
+    r = client.get("/users?sort=balance&size=100")
+    assert r.status_code == 200
+    balances = [float(u["balance"]) for u in r.json()["items"]]
+    assert balances == sorted(balances)
+
+
+def test_sort_by_balance_desc(client):
+    """sort=-balance 时按余额降序返回."""
+    r = client.get("/users?sort=-balance&size=100")
+    assert r.status_code == 200
+    balances = [float(u["balance"]) for u in r.json()["items"]]
+    assert balances == sorted(balances, reverse=True)
+
+
+def test_sort_invalid_field(client):
+    """排序字段不在白名单里返回 422, 这是在入口挡住的."""
+    r = client.get("/users?sort=password_hash")
+    assert r.status_code == 422

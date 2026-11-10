@@ -8,6 +8,7 @@ from app.core.security import create_access_token
 from app.deps import get_current_user, get_db
 from app.models import User
 from app.schemas.auth import CurrentUserOut, LoginIn, RegisterIn, TokenOut
+from app.schemas.error import RESP_401, RESP_409
 from app.schemas.user import UserOut
 from app.services import auth_service, notify_service
 
@@ -19,6 +20,7 @@ router = APIRouter(prefix="/auth", tags=["auth"])
     response_model=UserOut,
     status_code=status.HTTP_201_CREATED,
     summary="注册",
+    responses=RESP_409,
 )
 def register(
     payload: RegisterIn,
@@ -32,7 +34,12 @@ def register(
     return user
 
 
-@router.post("/login", response_model=TokenOut, summary="登录,返回令牌")
+@router.post(
+    "/login",
+    response_model=TokenOut,
+    summary="登录,返回令牌",
+    responses=RESP_401,
+)
 def login(payload: LoginIn, db: Session = Depends(get_db)) -> TokenOut:
     user = auth_service.authenticate(db, payload.username, payload.password)
     return TokenOut(
