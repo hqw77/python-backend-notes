@@ -102,6 +102,40 @@ uvicorn app.main:app --reload
 
 打开 http://127.0.0.1:8000/docs 查看自动生成的接口文档。
 
+### 5. 用 Docker 一条命令启动（推荐）
+
+不用装 Python、MySQL、Redis，一条命令起整套环境：
+
+```bash
+docker compose up -d --build
+```
+
+```plain
+NAME        STATUS                    PORTS
+pbn-app     Up (healthy)              0.0.0.0:8000->8000/tcp
+pbn-mysql   Up (healthy)              0.0.0.0:3307->3306/tcp
+pbn-redis   Up (healthy)              0.0.0.0:6380->6379/tcp
+```
+
+启动时会自动执行 `alembic upgrade head`，**空库也能直接跑起来**。
+
+| 服务 | 宿主机端口 | 说明 |
+| --- | --- | --- |
+| app | 8000 | 接口与 `/docs` |
+| mysql | 3307 | 避开本机 3306 |
+| redis | 6380 | 避开本机 6379 |
+
+常用命令：
+
+```bash
+docker compose ps                 # 看状态
+docker compose logs -f app        # 跟日志
+docker compose down               # 停止(数据保留)
+docker compose down -v            # 停止并删数据
+```
+
+镜像大小：应用 333MB（多阶段构建），mysql 1.1GB，redis 57.8MB。
+
 ## 接口清单
 
 | 方法 | 路径 | 权限 | 说明 |

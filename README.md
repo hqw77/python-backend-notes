@@ -44,6 +44,12 @@ mysql_notes/ch01/
 | ch02 | 缓存设计：Cache-Aside、穿透 / 击穿 / 雪崩、一致性 | 已完成 | `redis_notes/ch02/notes/` | `redis_notes/ch02/code/`（3 个案例） |
 | ch03 | 接入 `project/`：配置、缓存服务、失效、测试 | 已完成 | `redis_notes/ch03/notes/` | `redis_notes/ch03/code/`（2 个案例）+ `project/app/db/redis_client.py`、`project/app/services/cache.py`、`user_cache.py`、`project/tests/test_cache.py` |
 
+### 第四部分 · Docker 与部署（`docker_notes/`）
+
+| 章节 | 主题 | 状态 | 笔记 | 代码 |
+| --- | --- | --- | --- | --- |
+| ch01 | 容器与编排：镜像/容器、Dockerfile、多阶段构建、docker compose | 已完成 | `docker_notes/ch01/notes/` | `docker_notes/ch01/code/`（3 个案例）+ `project/Dockerfile`、`project/docker-compose.yml` |
+
 ### 第二部分 · FastAPI 深入（`fastapi_notes/`）
 
 | 章节 | 主题 | 状态 | 笔记 | 代码 |
@@ -96,6 +102,9 @@ python-backend-notes/
 │   ├── requirements.txt
 │   ├── .env.example
 │   └── README.md                 # 工程说明：接口清单、配置项、设计说明
+├── docker_notes/                 # 第四部分：Docker 与部署
+│   ├── ch01/                    # 容器与编排入门
+│   └── README.md
 ├── docs/                         # 架构说明 · 教程规划 · 文档排版模式 · 代码导读
 └── README.md
 ```

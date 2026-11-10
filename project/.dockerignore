@@ -1,0 +1,14 @@
+# 构建镜像时忽略的东西
+# 作用: 减小构建上下文、避免把密钥打进镜像、加快构建
+
+.git
+.gitignore
+.venv
+__pycache__
+*.py[cod]
+.pytest_cache
+.env
+.env.*
+!.env.example
+README.md
+tests
