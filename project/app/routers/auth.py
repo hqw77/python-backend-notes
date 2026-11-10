@@ -1,6 +1,6 @@
 """认证接口:注册,登录,查看当前用户."""
 
-from fastapi import APIRouter, Depends, status
+from fastapi import APIRouter, BackgroundTasks, Depends, status
 from sqlalchemy.orm import Session
 
 from app.core.config import settings
@@ -9,7 +9,7 @@ from app.deps import get_current_user, get_db
 from app.models import User
 from app.schemas.auth import CurrentUserOut, LoginIn, RegisterIn, TokenOut
 from app.schemas.user import UserOut
-from app.services import auth_service
+from app.services import auth_service, notify_service
 
 router = APIRouter(prefix="/auth", tags=["auth"])
 
@@ -20,8 +20,16 @@ router = APIRouter(prefix="/auth", tags=["auth"])
     status_code=status.HTTP_201_CREATED,
     summary="注册",
 )
-def register(payload: RegisterIn, db: Session = Depends(get_db)) -> UserOut:
-    return auth_service.register(db, payload.username, payload.phone, payload.password)
+def register(
+    payload: RegisterIn,
+    background: BackgroundTasks,
+    db: Session = Depends(get_db),
+) -> UserOut:
+    user = auth_service.register(db, payload.username, payload.phone, payload.password)
+
+    # 发通知不需要用户等待, 放到响应之后执行
+    background.add_task(notify_service.send_welcome_notice, user.username)
+    return user
 
 
 @router.post("/login", response_model=TokenOut, summary="登录,返回令牌")
