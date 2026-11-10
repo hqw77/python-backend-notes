@@ -1,5 +1,7 @@
 # python-backend-notes
 
+[![CI](https://github.com/hqw77/python-backend-notes/actions/workflows/ci.yml/badge.svg)](https://github.com/hqw77/python-backend-notes/actions/workflows/ci.yml)
+
 Python + MySQL 进阶实战学习仓库。
 
 从写第一句 `SELECT` 开始,一路走到 SQLAlchemy ORM + FastAPI 分层应用。每一章都留下三样东西：**可运行的代码**、**能复现的实验数据**、**自己整理过的笔记**。

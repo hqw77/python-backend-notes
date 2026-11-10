@@ -1,5 +1,7 @@
 # 用户管理系统 API
 
+[![CI](https://github.com/hqw77/python-backend-notes/actions/workflows/ci.yml/badge.svg)](https://github.com/hqw77/python-backend-notes/actions/workflows/ci.yml)
+
 基于 **FastAPI + SQLAlchemy 2.0 + MySQL 8.0** 的用户管理后端,提供注册登录、用户增删改查、角色权限控制与转账事务。
 
 ## 功能
