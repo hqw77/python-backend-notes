@@ -107,7 +107,7 @@ python-backend-notes/
 ├── docker_notes/                 # 第四部分：Docker 与部署
 │   ├── ch01/                    # 容器与编排入门
 │   └── README.md
-├── docs/                         # 架构说明 · 教程规划 · 文档排版模式 · 代码导读
+├── docs/                         # 架构 / 规划 / 规范 / 代码导读 / 生产化方案
 └── README.md
 ```
 
