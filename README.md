@@ -2,330 +2,363 @@
 
 [![CI](https://github.com/hqw77/python-backend-notes/actions/workflows/ci.yml/badge.svg)](https://github.com/hqw77/python-backend-notes/actions/workflows/ci.yml)
 
-Python + MySQL 进阶实战学习仓库。
+从写第一句 `SELECT` 开始,一路走到 **FastAPI 分层应用 + Redis 缓存 + Docker 部署**的后端学习仓库。
 
-从写第一句 `SELECT` 开始,一路走到 SQLAlchemy ORM + FastAPI 分层应用。每一章都留下三样东西：**可运行的代码**、**能复现的实验数据**、**自己整理过的笔记**。
+每一章都留下三样东西：**可运行的代码**、**能复现的实测数据**、**自己整理过的笔记**。
 
-## 仓库怎么组织
+---
 
-每章一个父目录,**笔记和代码分开**：
+## 这个仓库是什么
 
-```plain
-mysql_notes/ch01/
-├── notes/     # 这一章的笔记（只有 .md）
-└── code/      # 这一章的代码（只有 .py）
+它同时是三种东西：
+
+| 身份 | 对谁有用 | 体现 |
+| --- | --- | --- |
+| **学习笔记** | 自己复习 | 19 章 / 26 篇笔记 / 9200 行 |
+| **作品集** | 面试时展示 | 13 个接口 / 45 个测试 / CI 绿标 / 一条命令可跑 |
+| **可上线骨架** | 内部系统 | 分层、认证、缓存、日志、迁移全齐 |
+
+### 硬指标
+
+| 项 | 数量 |
+| --- | --- |
+| 教程章节 | **19 章**（MySQL 8 · Redis 3 · FastAPI 7 · Docker 1） |
+| 笔记 | 26 篇 / 约 9200 行 |
+| 可运行案例 | **55 个** / 约 4600 行 |
+| 应用代码 | 1300 行 / 26 文件 |
+| 测试 | **45 个** / 551 行,CI 全绿 |
+| 接口 | 13 个 |
+| 数据表 | 4 张(`users` / `orders` / `roles` / `user_roles`) |
+| 数据库迁移 | 4 个版本 |
+
+---
+
+## 30 秒跑起来
+
+### 方式一：Docker(推荐,不用装任何东西)
+
+```bash
+git clone https://github.com/hqw77/python-backend-notes.git
+cd python-backend-notes/project
+docker compose up -d --build
 ```
 
-| 层 | 目录 | 是什么 | 现在到哪 |
-| --- | --- | --- | --- |
-| 章节包 | `mysql_notes/chNN/` | 每章一个,内含 `notes/` 与 `code/` | 第一 ~ 三章 |
-| 作品集 | `project/app/` | 最终要交付的 FastAPI 项目 | 已能提供完整用户 API |
+打开 <http://127.0.0.1:8000/docs>。
 
-> `project/app/` 不再是空壳：第三章搭骨架,第四~六章陆续长出了 services、models（关系）、schemas 和 routers。
-
-## 学习进度
-
-### 第一部分 · MySQL + ORM + Web（`mysql_notes/`）
-
-| 章节 | 主题 | 状态 | 笔记 | 代码 |
-| --- | --- | --- | --- | --- |
-| 第一章 | MySQL 进阶基础（建表 / JOIN / 事务 / 索引 / 设计 / 运维） | 已完成 | `mysql_notes/ch01/notes/` | `mysql_notes/ch01/code/` + `mysql_notes/ch01/sql/` |
-| 第二章 | Python 数据库连接池 | 已完成 | `mysql_notes/ch02/notes/` | `mysql_notes/ch02/code/` |
-| 第三章 | SQLAlchemy ORM 基础 | 已完成 | `mysql_notes/ch03/notes/` | `mysql_notes/ch03/code/` + `project/app/models/user.py` |
-| 第四章 | SQLAlchemy ORM CRUD | 已完成 | `mysql_notes/ch04/notes/` | `mysql_notes/ch04/code/` + `project/app/services/` |
-| 第五章 | SQLAlchemy 进阶（关系 / N+1 / 并发 / 迁移） | 已完成 | `mysql_notes/ch05/notes/` | `mysql_notes/ch05/code/` + `project/app/models/order.py`、`role.py` |
-| 第六章 | FastAPI + MySQL | 已完成 | `mysql_notes/ch06/notes/` | `mysql_notes/ch06/code/` + `project/app/schemas/`、`project/app/routers/users.py` |
-| 第七章 | 完整项目实战（认证 / 权限 / 事务 / 测试） | 已完成 | `mysql_notes/ch07/notes/` | `mysql_notes/ch07/code/` + `project/app/core/security.py`、`project/app/routers/auth.py`、`project/tests/` |
-| 第八章 | 面试题与项目复盘 | 已完成 | `mysql_notes/ch08/notes/` | — |
-
-### 第三部分 · Redis（`redis_notes/`）
-
-| 章节 | 主题 | 状态 | 笔记 | 代码 |
-| --- | --- | --- | --- | --- |
-| ch01 | Redis 基础：五种类型、过期、Python 操作 | 已完成 | `redis_notes/ch01/notes/` | `redis_notes/ch01/code/`（4 个案例） |
-| ch02 | 缓存设计：Cache-Aside、穿透 / 击穿 / 雪崩、一致性 | 已完成 | `redis_notes/ch02/notes/` | `redis_notes/ch02/code/`（3 个案例） |
-| ch03 | 接入 `project/`：配置、缓存服务、失效、测试 | 已完成 | `redis_notes/ch03/notes/` | `redis_notes/ch03/code/`（2 个案例）+ `project/app/db/redis_client.py`、`project/app/services/cache.py`、`user_cache.py`、`project/tests/test_cache.py` |
-
-### 第四部分 · Docker 与部署（`docker_notes/`）
-
-| 章节 | 主题 | 状态 | 笔记 | 代码 |
-| --- | --- | --- | --- | --- |
-| ch01 | 容器与编排：镜像/容器、Dockerfile、多阶段构建、docker compose | 已完成 | `docker_notes/ch01/notes/` | `docker_notes/ch01/code/`（3 个案例）+ `project/Dockerfile`、`project/docker-compose.yml` |
-
-### 第二部分 · FastAPI 深入（`fastapi_notes/`）
-
-| 章节 | 主题 | 状态 | 笔记 | 代码 |
-| --- | --- | --- | --- | --- |
-| ch01 | 依赖注入进阶：依赖缓存、子依赖、类依赖、yield 清理 | 已完成 | `fastapi_notes/ch01/notes/` | `fastapi_notes/ch01/code/`（4 个案例）+ `project/app/core/pagination.py`、`project/tests/test_pagination.py` |
-| ch02 | 中间件与请求生命周期：请求 id、耗时、CORS、顺序与异常坑 | 已完成 | `fastapi_notes/ch02/notes/` | `fastapi_notes/ch02/code/`（5 个案例）+ `project/app/core/middleware.py`、`project/tests/test_middleware.py` |
-| ch03 | 后台任务与异步：async def vs def、事件循环阻塞、BackgroundTasks | 已完成 | `fastapi_notes/ch03/notes/` | `fastapi_notes/ch03/code/`（3 个案例）+ `project/app/services/notify_service.py`、`project/tests/test_background.py` |
-| ch04 | 分层再设计：ORM vs DTO、Session 边界、排序白名单 | 已完成 | `fastapi_notes/ch04/notes/` | `fastapi_notes/ch04/code/`（2 个案例）+ `project/app/core/pagination.py` 排序、`project/tests/test_pagination.py` |
-| ch05 | 可观测性：日志格式、contextvar 传 request_id | 已完成 | `fastapi_notes/ch05/notes/` | `fastapi_notes/ch05/code/`（2 个案例）+ `project/app/core/logging.py` |
-| ch06 | 文档与契约：OpenAPI、responses 声明错误 | 已完成 | `fastapi_notes/ch06/notes/` | `fastapi_notes/ch06/code/`（2 个案例）+ `project/app/schemas/error.py`、`project/tests/test_openapi.py` |
-| ch07 | 测试进阶：依赖覆盖、事务隔离、parametrize | 已完成 | `fastapi_notes/ch07/notes/` | `fastapi_notes/ch07/code/`（2 个案例）+ `project/tests/test_overrides.py`、`test_validation.py` |
-
-## 目录结构
+启动时会自动跑迁移(`alembic upgrade head`),**空库也能直接起来**。
 
 ```plain
-python-backend-notes/
-├── mysql_notes/                  # 第一部分：MySQL + ORM + Web（已完成）
-│   ├── README.md                 # 总纲：学习路线与各章目标
-│   ├── ch01/                     # SQL 基础：建表 / JOIN / 事务 / 索引 / 设计
-│   │   ├── notes/                # 阶段0 ~ 阶段7（8 篇）
-│   │   ├── code/                 # phase0 ~ phase6（8 个脚本）
-│   │   └── sql/                  # 10 个 SQL 脚本
-│   ├── ch02/                     # 连接池：原理 + PooledDB + 压测
-│   ├── ch03/                     # SQLAlchemy ORM 基础
-│   ├── ch04/                     # SQLAlchemy CRUD
-│   ├── ch05/                     # 关系映射 / N+1 / 并发
-│   ├── ch06/                     # FastAPI 与 MySQL 接口
-│   ├── ch07/                     # 完整项目实战：认证 / 权限 / 事务 / 测试
-│   ├── ch08/                     # 面试题与项目复盘
-│   ├── extras/notes/             # 番外01：Alembic 数据库迁移
-│   └── practice/                 # 早期零散练习
-├── fastapi_notes/                # 第二部分：FastAPI 深入（进行中）
-│   ├── ch01/                    # 依赖注入进阶
-│   ├── ch02/                    # 中间件与请求生命周期
-│   ├── ch03/                    # 后台任务与异步
-│   ├── ch04/                    # 分层再设计
-│   ├── ch05/                    # 可观测性
-│   ├── ch06/                    # 文档与契约
-│   ├── ch07/                    # 测试进阶
-│   └── README.md
-├── redis_notes/                  # 第三部分：Redis 缓存（知识部分已完成）
-│   ├── ch01/                    # Redis 基础：五种类型、过期、Python 操作
-│   ├── ch02/                    # 缓存设计：Cache-Aside、穿透/击穿/雪崩、一致性
-│   └── README.md
-├── project/                      # 共享工程：13 个接口的可运行系统
-│   ├── app/                      # 应用代码（main / deps / core / db / models / schemas / services / routers）
-│   ├── tests/                    # pytest 用例
-│   ├── migrations/               # Alembic 迁移（0001 ~ 0003）
-│   ├── alembic.ini
-│   ├── requirements.txt
-│   ├── .env.example
-│   └── README.md                 # 工程说明：接口清单、配置项、设计说明
-├── docker_notes/                 # 第四部分：Docker 与部署
-│   ├── ch01/                    # 容器与编排入门
-│   └── README.md
-├── docs/                         # 架构 / 规划 / 规范 / 代码导读 / 生产化方案
-└── README.md
+NAME        STATUS                    PORTS
+pbn-app     Up (healthy)              0.0.0.0:8000->8000/tcp
+pbn-mysql   Up (healthy)              0.0.0.0:3307->3306/tcp
+pbn-redis   Up (healthy)              0.0.0.0:6380->6379/tcp
 ```
 
-> `mysql_notes/`、`fastapi_notes/`、`redis_notes/` 是三条学习线,`project/` 是三条线共用的工程产物。
-> 章节案例通过 `sys.path` 引用 `project/app`,但工程本身不依赖任何笔记目录。
->
-> 工程的使用说明(接口清单、配置项、认证流程、设计说明)见 [project/README.md](project/README.md)。
-> 想读懂这些代码,从 [docs/CODE-READING.md](docs/CODE-READING.md) 开始——按请求链路分 7 站,每站附答案。
+> 宿主机端口错开了本机的 MySQL(3306) 和 Redis(6379)。
 
-## 快速开始
-
-### 1. 环境
-
-- Python 3.12
-- MySQL 8.0（本仓库在 8.0.42 上验证）
-- Windows / Git Bash
-
-### 2. 安装依赖
+### 方式二:本地跑(改代码时用)
 
 ```bash
 python -m venv .venv
-source .venv/Scripts/activate          # Windows CMD/PowerShell 用 .venv\Scripts\activate
+source .venv/Scripts/activate                    # PowerShell: .venv\Scripts\Activate.ps1
 pip install -r project/requirements.txt -i https://pypi.tuna.tsinghua.edu.cn/simple
-```
 
-> 国内网络直连 PyPI 经常卡住,加 `-i` 换清华镜像。
-
-### 3. 配置数据库
-
-```bash
 cd project
-cp .env.example .env
-# 编辑 .env,填入真实密码
-```
-
-`.env` 已被 `.gitignore` 忽略,不会提交。**仓库内不含任何密码。**
-
-### 4. 启动应用
-
-```bash
-cd project                      # ⚠️ 工程在 project/ 下,从这里启动
+cp .env.example .env                             # 填数据库密码
+alembic upgrade head                             # 建表
 uvicorn app.main:app --reload
 ```
 
 | 地址 | 说明 |
 | --- | --- |
-| http://127.0.0.1:8000/docs | Swagger 接口文档 |
-| http://127.0.0.1:8000/health | 进程存活探测（不碰数据库） |
-| http://127.0.0.1:8000/health/db | 数据库连通探测,返回 MySQL 版本 |
+| `/docs` | Swagger 接口文档 |
+| `/health` | 进程存活(不碰数据库) |
+| `/health/db` | 数据库连通(返回 MySQL 版本) |
 
-## 应用分层
+---
 
-调用方向单向：`routers → services → models`。反向依赖一律视为设计错误。
+## 目录结构
+
+```plain
+python-backend-notes/
+├── mysql_notes/              # 第一部分：MySQL + ORM + Web（8 章）
+│   ├── README.md             # 这部分的总纲
+│   ├── ch01/                 # SQL 基础：建表 / JOIN / 事务 / 索引 / 设计 / 运维
+│   │   ├── notes/            #   阶段 0 ~ 阶段 7（8 篇）
+│   │   ├── code/             #   phase0 ~ phase6（8 个脚本）
+│   │   └── sql/              #   10 个 SQL 脚本
+│   ├── ch02/                 # 连接池：原理 + PooledDB + 压测
+│   ├── ch03/                 # SQLAlchemy ORM 基础
+│   ├── ch04/                 # SQLAlchemy CRUD
+│   ├── ch05/                 # 关系映射 / N+1 / 并发
+│   ├── ch06/                 # FastAPI 与 MySQL 接口
+│   ├── ch07/                 # 完整项目实战：认证 / 权限 / 事务 / 测试
+│   ├── ch08/                 # 面试题与项目复盘
+│   └── extras/notes/         # 番外 01：Alembic 数据库迁移
+├── redis_notes/              # 第二部分：Redis（3 章）
+│   ├── ch01/                 # Redis 基础：五种类型、过期、Python 操作
+│   ├── ch02/                 # 缓存设计：Cache-Aside、穿透/击穿/雪崩、一致性
+│   ├── ch03/                 # 接入 project/：缓存服务、失效、测试
+│   └── README.md
+├── fastapi_notes/            # 第三部分：FastAPI 深入（7 章）
+│   ├── ch01/                 # 依赖注入进阶
+│   ├── ch02/                 # 中间件与请求生命周期
+│   ├── ch03/                 # 后台任务与异步
+│   ├── ch04/                 # 分层再设计（ORM vs DTO）
+│   ├── ch05/                 # 可观测性（日志 + request_id）
+│   ├── ch06/                 # 文档与契约（OpenAPI）
+│   ├── ch07/                 # 测试进阶
+│   └── README.md
+├── docker_notes/             # 第四部分：Docker 与部署（1 章）
+│   ├── ch01/                 # 容器与编排入门
+│   └── README.md
+├── project/                  # 四部分共用的工程产物
+│   ├── app/                  # 应用代码
+│   ├── tests/                # 45 个 pytest 用例
+│   ├── migrations/           # Alembic 迁移（0001 ~ 0004）
+│   ├── Dockerfile            # 多阶段构建
+│   ├── docker-compose.yml    # mysql + redis + app
+│   └── README.md             # 工程说明：接口清单、配置项、设计
+├── docs/                     # 架构 / 规划 / 规范 / 代码导读 / 生产化方案
+└── README.md
+```
+
+**四个 `*_notes/` 是学习线,`project/` 是它们共同的产物。**
+
+章节案例通过 `sys.path` 引用 `project/app`,但工程本身**不依赖**任何笔记目录——可以单独拷出去部署。
+
+---
+
+## 学习路线
+
+按顺序读,每一部分都建立在前一部分之上。
+
+### 第一部分 · MySQL + ORM + Web(`mysql_notes/`,8 章)
+
+> 从 SQL 到能跑的用户 API。这一部分是整个仓库的地基。
+
+| 章 | 主题 | 笔记 |
+| --- | --- | --- |
+| 1 | MySQL 进阶基础:建表规范、JOIN、事务、索引、设计、运维 | [8 篇阶段笔记](mysql_notes/ch01/notes/) |
+| 2 | Python 数据库连接池:建连代价、PooledDB、压测(4.3 倍) | [第二章](mysql_notes/ch02/notes/Python%20数据库连接池.md) |
+| 3 | SQLAlchemy ORM 基础:Engine / Base / Model / Session、脏检查 | [第三章](mysql_notes/ch03/notes/SQLAlchemy%20ORM%20基础.md) |
+| 4 | ORM CRUD:分页、批量、软删、service 分层 | [第四章](mysql_notes/ch04/notes/SQLAlchemy%20ORM%20CRUD.md) |
+| 5 | 关系映射:一对多、多对多、N+1、并发丢更新 | [第五章](mysql_notes/ch05/notes/SQLAlchemy%20进阶.md) |
+| 6 | FastAPI + MySQL:schema、状态码、异常映射、TestClient | [第六章](mysql_notes/ch06/notes/FastAPI%20+%20MySQL.md) |
+| 7 | 完整项目实战:argon2、JWT、RBAC、转账事务、pytest | [第七章](mysql_notes/ch07/notes/完整项目实战.md) |
+| 8 | 面试题与项目复盘:12 道题、踩坑记录、简历写法 | [第八章](mysql_notes/ch08/notes/面试题与项目复盘.md) |
+| 番外 | Alembic:为什么不用 `create_all`、基线、`include_object` 防误删 | [番外 01](mysql_notes/extras/notes/01-Alembic%20数据库迁移.md) |
+
+### 第二部分 · Redis(`redis_notes/`,3 章)
+
+> 数据不能只压在 MySQL 上。这部分讲缓存怎么加、加了会出什么事。
+
+| 章 | 主题 | 笔记 |
+| --- | --- | --- |
+| 1 | Redis 基础:五种类型 + 48 条命令表、过期、key 命名 | [第一章](redis_notes/ch01/notes/Redis%20基础.md) |
+| 2 | 缓存设计:Cache-Aside、穿透/击穿/雪崩、一致性 | [第二章](redis_notes/ch02/notes/缓存设计与三大问题.md) |
+| 3 | 接入工程:DTO 缓存、写操作失效、5 个缓存测试 | [第三章](redis_notes/ch03/notes/把缓存接进项目.md) |
+
+### 第三部分 · FastAPI 深入(`fastapi_notes/`,7 章)
+
+> 基础篇讲"怎么用",这部分讲"用错会怎样"。
+
+| 章 | 主题 | 笔记 |
+| --- | --- | --- |
+| 1 | 依赖注入进阶:依赖缓存、子依赖、类依赖、`yield` 清理 | [第一章](fastapi_notes/ch01/notes/依赖注入进阶.md) |
+| 2 | 中间件:请求 id、耗时、CORS、洋葱顺序、异常坑 | [第二章](fastapi_notes/ch02/notes/中间件与请求生命周期.md) |
+| 3 | 后台任务与异步:`async def` vs `def`、事件循环阻塞 | [第三章](fastapi_notes/ch03/notes/后台任务与异步.md) |
+| 4 | 分层再设计:ORM vs DTO、`DetachedInstanceError`、排序白名单 | [第四章](fastapi_notes/ch04/notes/分层再设计.md) |
+| 5 | 可观测性:日志格式、`contextvar` 传 request_id | [第五章](fastapi_notes/ch05/notes/可观测性.md) |
+| 6 | 文档与契约:OpenAPI 来源、`responses` 声明错误、契约测试 | [第六章](fastapi_notes/ch06/notes/文档与契约.md) |
+| 7 | 测试进阶:依赖覆盖、事务隔离、`parametrize` | [第七章](fastapi_notes/ch07/notes/测试进阶.md) |
+
+### 第四部分 · Docker(`docker_notes/`,1 章)
+
+> 让别人一条命令跑起来。Docker 是工具,讲透一次就够。
+
+| 章 | 主题 | 笔记 |
+| --- | --- | --- |
+| 1 | 镜像与容器、Dockerfile 逐指令、多阶段构建、compose 编排 | [第一章](docker_notes/ch01/notes/容器与编排入门.md) |
+
+---
+
+## 工程:`project/`
+
+### 接口清单(13 个)
+
+| 方法 | 路径 | 权限 | 说明 |
+| --- | --- | --- | --- |
+| GET | `/health` | 公开 | 进程存活 |
+| GET | `/health/db` | 公开 | 数据库连通 |
+| POST | `/auth/register` | 公开 | 注册(响应后异步发通知) |
+| POST | `/auth/login` | 公开 | 登录,返回 JWT |
+| GET | `/auth/me` | 登录 | 当前用户与角色 |
+| GET | `/users` | 公开 | 分页 + 排序(6 种白名单值) |
+| GET | `/users/{id}` | 公开 | 详情(**带缓存**,命中时 0 条 SQL) |
+| POST | `/users` | 公开 | 创建 |
+| PUT | `/users/{id}/balance` | 公开 | 调整余额 |
+| DELETE | `/users/{id}` | 公开 | 软删除 |
+| GET | `/users/{id}/roles` | 公开 | 查询角色 |
+| POST | `/users/{id}/roles` | **admin** | 分配角色 |
+| POST | `/transfer` | 登录 | 转账(单事务) |
+
+### 分层
+
+依赖方向单向：`routers → services → models`。反向依赖视为设计错误。
 
 | 层 | 只负责 | 禁止 |
 | --- | --- | --- |
-| `routers/` | HTTP 入参出参、状态码、依赖注入 | 写 SQL、写业务规则 |
-| `services/` | 业务规则、事务提交与回滚 | 感知 HTTP、返回 Response |
-| `models/` | 表结构映射、关系定义 | 业务判断 |
-| `db/` | Engine / Session 生命周期 | 业务代码 |
-| `core/` | 配置、安全、异常定义 | 依赖上层模块 |
+| `routers/` | 入参出参、状态码、依赖注入 | 写 SQL、写业务规则 |
+| `services/` | 业务规则、事务边界、抛业务异常 | 感知 HTTP |
+| `models/` | 表结构映射与关系 | 业务判断 |
+| `db/` | Engine / Session / Redis 生命周期 | 业务代码 |
+| `core/` | 配置、安全、日志、中间件、异常 | 依赖上层 |
 
-## 笔记索引
+**验证方法**:在 `routers/` 目录下搜 `select(` 和 `commit`,应该是 0 处。
 
-### 第一章 · MySQL 进阶基础
+### 技术栈
 
-| 阶段 | 主题 | 代码 |
-| --- | --- | --- |
-| [阶段0](mysql_notes/ch01/notes/阶段0%20--%20环境搭建与连通.md) | 环境搭建与连通 | `mysql_notes/ch01/code/phase0/` |
-| [阶段1](mysql_notes/ch01/notes/阶段1%20--%20单表%20CRUD%20与基础查询.md) | 单表 CRUD 与基础查询 | `mysql_notes/ch01/code/phase1/` |
-| [阶段2](mysql_notes/ch01/notes/阶段2%20--%20建表进阶.md) | 建表进阶：类型、六大约束、规范 | `mysql_notes/ch01/code/phase2/` |
-| [阶段3](mysql_notes/ch01/notes/阶段3%20--%20多表查询与%20JOIN.md) | 多表查询与 JOIN | `mysql_notes/ch01/code/phase3/` |
-| [阶段4](mysql_notes/ch01/notes/阶段%204：事务与并发控制.md) | 事务与并发控制 | `mysql_notes/ch01/code/phase4/` |
-| [阶段5](mysql_notes/ch01/notes/阶段5%20--%20索引与性能优化.md) | 索引与性能优化 | `mysql_notes/ch01/code/phase5/` |
-| [阶段6](mysql_notes/ch01/notes/阶段6%20--%20数据库设计（范式与建模）.md) | 数据库设计：范式与建模 | `mysql_notes/ch01/code/phase6/` |
-| [阶段7](mysql_notes/ch01/notes/阶段7%20--%20运维与架构.md) | 运维与架构 | — |
-
-### 第二章 · Python 数据库连接池
-
-| 主题 | 笔记 |
+| 组件 | 用途 |
 | --- | --- |
-| 建连的四步开销、池子的三条规则、PooledDB 五个参数、压测对比、常见错误 | [第二章 -- Python 数据库连接池](mysql_notes/ch02/notes/Python%20数据库连接池.md) |
+| FastAPI + uvicorn | Web 框架与 ASGI 服务器 |
+| SQLAlchemy 2.1 + PyMySQL | ORM 与驱动 |
+| Alembic | 表结构版本控制(4 个迁移) |
+| Pydantic v2 | 请求响应模型与校验 |
+| argon2-cffi | 密码哈希 |
+| PyJWT | 令牌签发校验 |
+| redis-py | 缓存(Cache-Aside) |
+| pytest + httpx | 45 个接口测试 |
+| Docker + Compose | 一键部署 |
 
-### 第三章 · SQLAlchemy ORM 基础
+---
 
-| 主题 | 笔记 | 代码 |
+## 实测数据
+
+这个仓库的每个技术结论都跑过,数字可复现。
+
+| 场景 | 结果 | 出自 |
 | --- | --- | --- |
-| Engine / Base / Model / Session 四件套、`Mapped[T]` 与 `mapped_column`、脏检查机制、四个可执行案例 | [第三章](mysql_notes/ch03/notes/SQLAlchemy%20ORM%20基础.md) | `mysql_notes/ch03/code/01~04` + `project/app/models/user.py` |
-| 建表迁移单独成篇：`create_all` 为什么不适用、Alembic 基线、`include_object` 防误删 | [番外01 -- Alembic 数据库迁移](mysql_notes/extras/notes/01-Alembic%20数据库迁移.md) | `project/migrations/` |
+| 缓存效果 | **0.34 ms/次 vs 50.4 ms/次**,差约 150 倍 | [redis ch02](redis_notes/ch02/notes/缓存设计与三大问题.md) |
+| N+1 查询 | 懒加载 4 条 SQL → `selectinload` **2 条** | [mysql ch05](mysql_notes/ch05/notes/SQLAlchemy%20进阶.md) |
+| 连接池 | 11.40 ms vs 2.66 ms,**4.3 倍** | [mysql ch02](mysql_notes/ch02/notes/Python%20数据库连接池.md) |
+| 批量写入 | 100 条:**0.185 s → 0.014 s**(12.9 倍) | [mysql ch04](mysql_notes/ch04/notes/SQLAlchemy%20ORM%20CRUD.md) |
+| 异步阻塞 | 5 并发:`async def` + `time.sleep` **1.51 s**,`await asyncio.sleep` **0.31 s** | [fastapi ch03](fastapi_notes/ch03/notes/后台任务与异步.md) |
+| 缓存穿透 | 压库 **100 次 → 1 次**(空值缓存) | [redis ch02](redis_notes/ch02/notes/缓存设计与三大问题.md) |
+| 缓存击穿 | 压库 **10 次 → 1 次**(互斥锁) | 同上 |
+| 详情接口 | 命中缓存后发 **0 条 SELECT** | [redis ch03](redis_notes/ch03/notes/把缓存接进项目.md) |
 
-### 第四章 · SQLAlchemy ORM CRUD
+---
 
-| 主题 | 笔记 | 代码 |
+## 质量保障
+
+### 测试分布(45 个)
+
+| 文件 | 数量 | 测什么 |
 | --- | --- | --- |
-| `add`/`commit`/`refresh` 的时序、条件查询与分页、改的两种写法、软删 vs 硬删、批量写入、service 分层 | [第四章](mysql_notes/ch04/notes/SQLAlchemy%20ORM%20CRUD.md) | `mysql_notes/ch04/code/01~04` + `project/app/services/user_service.py` |
+| `test_auth.py` | 8 | 注册、登录、令牌、401/403 |
+| `test_cache.py` | 5 | 缓存命中、写操作失效、404 不缓存 |
+| `test_pagination.py` | 7 | 分页参数、排序白名单、非法值 422 |
+| `test_middleware.py` | 5 | `X-Request-ID`、`X-Process-Time` |
+| `test_background.py` | 2 | 后台通知被触发、接口行为不变 |
+| `test_openapi.py` | 5 | 错误契约声明与真实返回一致 |
+| `test_overrides.py` | 2 | 依赖覆盖与清理 |
+| `test_validation.py` | 9 | 参数化覆盖各类非法输入 |
+| `test_schema.py` | 2 | 模型与表齐全、迁移版本存在 |
 
-### 第五章 · SQLAlchemy 进阶
+### CI
 
-| 主题 | 笔记 | 代码 |
-| --- | --- | --- |
-| 一对多 / 多对多关系映射、没有物理外键怎么写 `primaryjoin`、N+1 与 `selectinload`、并发丢更新、Alembic 加表 | [第五章](mysql_notes/ch05/notes/SQLAlchemy%20进阶.md) | `mysql_notes/ch05/code/01~04` + `project/app/models/order.py`、`role.py` |
+每次 push 自动跑:
 
-### 第六章 · FastAPI + MySQL
+```plain
+起 MySQL 8.0 + Redis 7(service containers)
+  → 装依赖 → compileall 语法检查
+  → alembic upgrade head
+  → pytest(45 个)
+  → alembic check(确认模型与库无漂移)
+```
 
-| 主题 | 笔记 | 代码 |
-| --- | --- | --- |
-| Pydantic 校验与响应裁剪、状态码语义、异常到 HTTP 的映射、分页接口、TestClient | [第六章](mysql_notes/ch06/notes/FastAPI%20+%20MySQL.md) | `mysql_notes/ch06/code/01~03` + `project/app/schemas/`、`project/app/routers/users.py` |
+> CI 第一次运行就抓出一个真 bug:`orders` 表从来没进过迁移。本地因为手工建过所以没事,全新库直接报错。这就是 CI 的价值。
 
-### 第七章 · 完整项目实战
+### 编码约定
 
-| 主题 | 笔记 | 代码 |
-| --- | --- | --- |
-| 密码哈希(argon2)、注册登录、JWT 签发校验、鉴权依赖、角色权限、转账事务、pytest 自动化测试 | [第七章](mysql_notes/ch07/notes/完整项目实战.md) | `mysql_notes/ch07/code/01~04` + `project/app/core/security.py`、`project/app/routers/auth.py`、`project/tests/` |
-
-### 第八章 · 面试题与项目复盘
-
-| 主题 | 笔记 |
+| 规则 | 说明 |
 | --- | --- |
-| 七章知识地图、12 道高频面试题答题要点、项目复盘与踩坑记录、简历写法、下一步路线 | [第八章](mysql_notes/ch08/notes/面试题与项目复盘.md) |
+| 代码严格英文标点 | `.py` / `.sql` 里 0 个中文标点 |
+| 文档保留中文标点 | 只有逗号统一用英文 `,` |
+| 目录名不与包同名 | 用 `*_notes`,避免遮蔽 `import redis` |
+| 每章笔记与代码分开放 | `notes/` 只放 `.md`,`code/` 只放 `.py` |
 
-完整学习路线见 [Python + MySQL 进阶实战教程](mysql_notes/README.md)。
+完整规范见 [docs/DOC-PATTERN.md](docs/DOC-PATTERN.md)。
+
+---
+
+## 文档地图
+
+| 文件 | 给谁看 | 内容 |
+| --- | --- | --- |
+| [README.md](README.md) | 逛仓库的人 | 就是这一页 |
+| [project/README.md](project/README.md) | 想跑项目的人 | 接口、配置项、认证流程、设计说明 |
+| [docs/CODE-READING.md](docs/CODE-READING.md) | 想读代码的人 | 按请求链路分 7 站,每站附答案 |
+| [docs/DOC-PATTERN.md](docs/DOC-PATTERN.md) | 想写新章节的人 | 文档模板与写作规则 |
+| [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) | 想理解设计的人 | 分层、依赖方向、完成度矩阵 |
+| [docs/COURSE-PLAN.md](docs/COURSE-PLAN.md) | 想知道规划的人 | 各章目标与进度 |
+| [docs/PRODUCTION-PLAN.md](docs/PRODUCTION-PLAN.md) | 真要上线的人 | 生产化 P0/P1 清单(内部系统 · 单机) |
+
+---
 
 ## 数据库迁移
 
-表结构变更一律走 Alembic,不要用 `Base.metadata.create_all`。完整讲解见 [番外01](mysql_notes/extras/notes/01-Alembic%20数据库迁移.md)。
+表结构变更一律走 Alembic,不要用 `Base.metadata.create_all`。
 
 ```bash
-cd project                               # ⚠️ alembic.ini 在 project/ 下
-alembic current                          # 当前版本
+cd project                               # alembic.ini 在 project/ 下
+alembic current                          # 当前版本(应为 0004_orders)
 alembic check                            # 模型与库是否有差异
-alembic revision --autogenerate -m "描述" # 生成迁移
-alembic upgrade head                     # 应用迁移
+alembic revision --autogenerate -m "说明" # 生成迁移
+alembic upgrade head                     # 应用
 alembic downgrade -1                     # 回退一步
 ```
 
-> 注意：库里有第一章遗留的练习表（`students`/`books`/`orders`…）,它们没有对应的 ORM 模型。
-> `project/migrations/env.py` 里的 `include_object` 会把这些表排除在外,防止 autogenerate 生成 `DROP TABLE`。
+> 库里有第一章遗留的练习表(`students`/`books`/`big_users`…),它们没有 ORM 模型。
+> `migrations/env.py` 里的 `include_object` 会排除这些表,防止 autogenerate 生成 `DROP TABLE`。
 
-## 练习代码怎么跑
-
-所有 `mysql_notes/*/code/` 下的脚本都通过环境变量读连接信息,先设置密码：
-
-```bash
-export MYSQL_PASSWORD=你的密码
-```
-
-| 脚本 | 作用 |
-| --- | --- |
-| `python mysql_notes/ch01/code/phase0/check_connection.py` | 验证能否连通 MySQL |
-| `python mysql_notes/ch01/code/phase1/crud_basic.py` | 单表增删改查 |
-| `python mysql_notes/ch01/code/phase1/student_manager.py` | 控制台版学生管理（交互式） |
-| `python mysql_notes/ch01/code/phase2/create_tables.py` | 用 Python 执行 DDL |
-| `python mysql_notes/ch01/code/phase3/test_subquery.py` | 嵌套子查询 |
-| `python mysql_notes/ch01/code/phase4/transaction_test.py` | 转账事务与回滚 |
-| `python mysql_notes/ch01/code/phase5/test_explain.py` | EXPLAIN 前后对比索引效果 |
-| `python mysql_notes/ch01/code/phase6/design_check.py` | 查看当前库的表结构 |
-| `python mysql_notes/ch02/code/legacy/demo-user-manager-sys.py` | 裸连接版用户管理（改造前） |
-| `python mysql_notes/ch02/code/01_pool_basic.py` | 案例1：借还一条连接,看连接是否复用 |
-| `python mysql_notes/ch02/code/02_benchmark.py` | 案例2：裸连接 vs 连接池压测 |
-| `python mysql_notes/ch03/code/01_first_query.py` | 案例1：最小闭环,用 ORM 查出第一条数据 |
-| `python mysql_notes/ch03/code/02_pymysql_vs_orm.py` | 案例2：PyMySQL 拿字典 vs ORM 拿对象 |
-| `python mysql_notes/ch03/code/03_dirty_check.py` | 案例3：脏检查,验证什么时候才发 UPDATE |
-| `python mysql_notes/ch03/code/04_use_app_model.py` | 案例4：工程版模型,和脚本版只差一个 import |
-| `python mysql_notes/ch04/code/01_add.py` | 案例1：新增与唯一键冲突 |
-| `python mysql_notes/ch04/code/02_query.py` | 案例2：条件查询与分页 |
-| `python mysql_notes/ch04/code/03_update_delete.py` | 案例3：改的两种写法,软删 vs 硬删 |
-| `python mysql_notes/ch04/code/04_batch_and_service.py` | 案例4：批量写入 12.9 倍差距,service 分层 |
-| `python mysql_notes/ch05/code/01_relationship.py` | 案例1：一对多与懒加载时机 |
-| `python mysql_notes/ch05/code/02_many_to_many.py` | 案例2：多对多与中间表 |
-| `python mysql_notes/ch05/code/03_nplus1.py` | 案例3：N+1 实测（4 条 vs 2 条 SQL） |
-| `python mysql_notes/ch05/code/04_lock.py` | 案例4：并发丢更新与 FOR UPDATE |
-| `python mysql_notes/ch06/code/01_schemas.py` | 案例1：Pydantic 校验规则 |
-| `python mysql_notes/ch06/code/02_api_read.py` | 案例2：读接口、404、422 |
-| `python mysql_notes/ch06/code/03_api_write.py` | 案例3：写接口 201/409/204 |
-| `python mysql_notes/ch07/code/01_password_hash.py` | 案例1：密码哈希与校验 |
-| `python mysql_notes/ch07/code/02_register_login.py` | 案例2：注册 201 / 重复 409 / 登录拿令牌 |
-| `python mysql_notes/ch07/code/03_auth_flow.py` | 案例3：401 / 403 与角色授权 |
-| `python mysql_notes/ch07/code/04_transfer.py` | 案例4：转账事务与余额回滚 |
-
-### 第二章实测数据
-
-200 次查询 / 20 线程：
-
-```plain
-裸连接     总耗时 2.366s    平均 11.83 ms/次
-连接池     总耗时 0.556s    平均  2.78 ms/次
-连接池比裸连接快 4.3 倍
-```
-
-## 技术栈
-
-| 组件 | 版本 | 用途 |
-| --- | --- | --- |
-| MySQL | 8.0.42 | 数据库 |
-| PyMySQL | 1.2.3 | 原生驱动 |
-| DBUtils | 3.2.0 | 连接池（第二章） |
-| SQLAlchemy | 2.1.6 | ORM 与连接池（应用层） |
-| FastAPI | 0.162.0 | Web 框架 |
-| uvicorn | 0.54.0 | ASGI 服务器 |
-| pydantic-settings | 2.16.2 | 配置管理 |
-| argon2-cffi | 25.1.0 | 密码哈希（第七章） |
-| PyJWT | 2.15.1 | JWT 签发与校验（第七章） |
-| pytest | 9.2.0 | 自动化测试（第七章） |
-
-## 约定
-
-- **密码一律走环境变量 / `.env`**,代码里不出现明文。
-- `.env`、`.venv/`、`__pycache__/` 均已加入 `.gitignore`。
-- 每章一个目录：`mysql_notes/chNN/`,里面 `notes/` 只放 `.md`,`code/` 只放 `.py`。
-- 应用代码与学习代码分离：`project/app/` 是作品集,`mysql_notes/` 是学习轨迹,两者不互相 import。
-- 目录只在有内容时才建,不留空包。
+---
 
 ## 常见问题
 
 | 现象 | 原因 / 解决 |
 | --- | --- |
 | `mysql: command not found` | PATH 没生效,重启 VSCode 让新环境变量生效 |
-| `detected dubious ownership` | 目录属主与当前用户不一致,执行 `git config --global --add safe.directory 仓库路径` |
+| `detected dubious ownership` | `git config --global --add safe.directory 仓库路径` |
 | `pip install` 卡住 | 加 `-i https://pypi.tuna.tsinghua.edu.cn/simple` |
-| `Access denied for user 'root'` | `.env` 里的 `MYSQL_PASSWORD` 不对 |
-| `Lost connection to MySQL server` | 连接被 `wait_timeout` 断开,连接池设 `ping=1` |
+| `ModuleNotFoundError: No module named 'app'` | 没在 `project/` 下启动,或没激活 venv |
+| `redis.exceptions.ConnectionError` | Redis 没启动:`docker start mysql-learn-redis` |
+| `Table 'xxx' doesn't exist` | 没跑迁移:`cd project && alembic upgrade head` |
+| `port is already allocated` | 宿主机端口被占,改 compose 里的映射 |
+| 改了代码 Docker 没生效 | 用旧镜像了:`docker compose up -d --build` |
+
+---
+
+## 进度与下一步
+
+### 已完成
+
+```plain
+✅ 四部分 19 章教程 + 55 个可运行案例
+✅ 13 个接口 + 45 个测试 + CI 绿
+✅ Docker 一条命令部署
+✅ 4 个数据库迁移,空库可自举
+```
+
+### 没做(按优先级)
+
+| # | 事项 | 说明 |
+| --- | --- | --- |
+| 1 | 生产化 P0 | 限流、密钥管理、备份演练等 8 项,见 [生产化方案](docs/PRODUCTION-PLAN.md) |
+| 2 | 第二个项目 | 现在的项目业务偏简单,缺复杂业务场景 |
+| 3 | 部署上线 | 还没真跑在服务器上 |
+
+---
+
+<small>仓库从 2026-11-01 开始,当天留下第一条提交。每一条技术结论都有对应提交和可复现的代码。</small>
